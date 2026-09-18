@@ -1,0 +1,180 @@
+export const metadata = {
+  title: "Cómo Configurar el Botín para Crear Mazmorras: Guía Completa de Personalización",
+  description: "Aprende a personalizar el botín para crear mazmorras en Minecraft. Domina las tablas de botín, edición JSON, datapacks y mecánicas de mods para recompensas épicas.",
+  category: "mechanics",
+  date: "2026-09-19",
+}
+
+Abrir un cofre cubierto de musgo en las profundidades subterráneas debería sentirse como descubrir un tesoro real; sin embargo, las recompensas del juego base suelen dejar a los jugadores insatisfechos. Cuando decides ajustar el **botín para crear mazmorras** y convertirlas en desafíos emocionantes, transformas la repetitiva exploración subterránea en una atractiva experiencia RPG. Dominar las tablas de recompensas de tu mundo garantiza que cada sala peligrosa otorgue artefactos personalizados, equipo equilibrado y recursos adaptados. Ya sea que gestiones un servidor multijugador de supervivencia o diseñes un modpack personalizado, ajustar con precisión tu **botín para crear mazmorras** te otorga un control total sobre la progresión del mundo y la motivación del jugador.
+
+Explorar mazmorras pierde su atractivo cuando los aventureros avanzados se enfrentan a generadores de monstruos letales solo para encontrar un puñado de hilos, carne podrida y una montura desgastada. Al tomar el control de las mecánicas de distribución procedimental tras la generación de contenedores, puedes reemplazar los botines decepcionantes con objetos que incluyan etiquetas de trasfondo únicas, encantamientos personalizados, valores de componentes modificados y atributos temáticos. En esta guía, desglosamos las mecánicas exactas necesarias para reconstruir las recompensas de mazmorras desde cero, comparando soluciones ligeras basadas en datos vanilla frente a frameworks de mods dedicados.
+
+---
+
+## Las Mecánicas de Generación de Botín en Mazmorras de Minecraft
+
+Antes de alterar las tablas de contenedores, debes entender cómo el motor del juego decide qué objetos aparecen dentro de las cajas, cofres y barriles subterráneos. Siempre que un jugador genera o abre el contenedor de una estructura no visitada, el motor invoca un archivo JSON específico denominado tabla de botín (*loot table*).
+
+Estos archivos se estructuran en bloques bien definidos: "pools" (grupos), "rolls" (tiradas), "entries" (entradas) y "functions" (funciones). Un grupo dicta cuántos intentos realiza el juego para extraer un objeto, lo cual se controla mediante las tiradas. Dentro de estas tiradas, las entradas definen los posibles objetos, equilibrados mediante pesos (*weights*) para determinar la rareza del botín. Finalmente, las funciones modifican esos objetos base aplicando nombres personalizados, descripciones de historia, encantamientos o modificadores de atributos especializados, como velocidad de movimiento adicional o daño de ataque extra.
+
+| Componente de la Tabla de Botín | Rol Estructural | Ejemplo Práctico en el Juego |
+| :--- | :--- | :--- |
+| **Pool (Grupo)** | Organiza tiradas de objetos agrupados | Separar armas raras de raciones de comida comunes |
+| **Rolls (Tiradas)** | Establece la cantidad de objetos extraídos | Realizar entre 2 y 5 tiradas por cofre desbloqueado |
+| **Entries (Entradas)** | Aloja los objetos de destino | `minecraft:diamond_sword` o `minecraft:enchanted_golden_apple` |
+| **Weight (Peso)** | Determina las probabilidades de selección | Un peso de 5 aparece con mucha menor frecuencia que un peso de 80 |
+| **Functions (Funciones)** | Modifica el objeto seleccionado | Añadir texto de trasfondo personalizado, encantamientos específicos o etiquetas ocultas |
+| **Conditions (Condiciones)** | Restringe cuándo se generan las recompensas | Restringir equipo de nivel superior a menos que el jugador derrote a un jefe de mazmorra |
+
+Los reportes de la comunidad destacan que el uso de métodos ligeros y compatibles con el juego vanilla —como los popularizados por mods como Customized Dungeon Loot— ofrece una gran estabilidad a largo plazo. Al modificar la estructura de datos vanilla sin registrar identificadores de objetos completamente nuevos, tus objetos personalizados persisten en el mundo incluso si más adelante eliminas o reconfiguras el mod. Esto elimina por completo los temidos errores de "bloque/objeto faltante" que pueden corromper mundos existentes.
+
+---
+
+## Datapacks vs. Configuración Directa de Mods: Eligiendo tu Flujo de Trabajo
+
+Dependiendo de tu versión de Minecraft, la configuración de tu servidor y tu nivel de comodidad técnica, existen dos métodos principales para ajustar los botines. Puedes crear un datapack independiente o modificar los archivos del mod directamente para inyectar tablas personalizadas.
+
+```
+📁 Root
+└── 📁 data
+    └── 📁 minecraft
+        └── 📁 loot_tables
+            └── 📁 chests
+                ├── simple_dungeon.json
+                └── abandoned_mineshaft.json
+```
+
+Un datapack se coloca dentro del directorio `datapacks` de tu mundo y sobrescribe los datos globales del juego de forma nativa. Por el contrario, editar el archivo de un mod directamente —como abrir un paquete `.jar`— aplica los cambios de forma fija en todos los mundos que utilicen ese perfil de mods.
+
+| Parámetro | Enfoque con Datapack | Edición Directa del Archivo del Mod (.jar) |
+| :--- | :--- | :--- |
+| **Compatibilidad** | Versiones modernas (1.14 hasta las más recientes) | Universal; estructuras antiguas (1.12) y modernas |
+| **Ruta Interna** | `data/minecraft/loot_tables/...` | `assets/...` (1.12) o `data/...` (1.14+) |
+| **Portabilidad del Mundo** | Se traslada fácilmente junto con las carpetas de guardado del mundo | Afecta a todos los mundos cargados en ese cliente o servidor de juego |
+| **Riesgo de Mantenimiento** | Bajo; no alterará los archivos principales del juego | Alto; las actualizaciones del lanzador pueden sobrescribir archivos `.jar` modificados |
+| **Herramientas Requeridas** | Editor de texto básico y utilidad de compresión (Zip) | Software descompresor (7-Zip, WinRAR) y editor de texto |
+
+Para quienes utilicen cargadores de mods modernos, asegúrense de revisar plataformas de desarrolladores como la [Comunidad de Minecraft en CurseForge](https://www.curseforge.com/minecraft) para comprobar las librerías requeridas. Por ejemplo, las versiones modernas de mods para modificar botines a menudo requieren librerías base como Magma Core en versiones recientes del juego para gestionar funciones en segundo plano, control de eventos y comprobaciones automáticas de actualización.
+
+---
+
+## Paso a Paso: Reconstruyendo tu Botín para Crear Mazmorras
+
+Inyectar equipo personalizado requiere precisión. Si falta un corchete o una coma en un archivo `.json`, el motor del juego no podrá leerlo, lo que provocará que los cofres aparezcan completamente vacíos. Sigue estos pasos para construir grupos de recompensas equilibrados y funcionales.
+
+### Paso 1: Localiza los Archivos de la Estructura Objetivo
+Identifica qué estructura deseas mejorar. Minecraft categoriza las recompensas de cofres por arquetipos, que van desde `simple_dungeon` hasta `ancient_city`, `stronghold_corridor` y `nether_bridge`.
+
+### Paso 2: Abre y Desempaqueta los Datos del Contenedor
+Extrae la plantilla existente del archivo del mod o copia una plantilla limpia desde las carpetas de recursos por defecto del juego. Si editas el archivo de un mod directamente:
+* En Minecraft 1.12: navega hasta `assets\customizeddungeonloot\loot_tables`
+* En Minecraft 1.14 y superiores: navega hasta `data\minecraft\loot_tables`
+
+### Paso 3: Define los Pesos y Modificadores de los Objetos
+Configura niveles bien diferenciados. En lugar de otorgar espadas estándar, utiliza las funciones `set_components` o `set_nbt` para aplicar nombres visibles personalizados, descripciones temáticas y modificadores de atributos.
+
+### Paso 4: Valida tu Código
+Antes de colocar el archivo en tu entorno de servidor, pega tu código JSON en un validador de sintaxis en línea. Validar el archivo elimina comillas faltantes o comas sobrantes que, de lo contrario, harían fallar el motor de análisis de tablas durante el inicio del mundo.
+
+| Fase de Configuración | Objetivo Principal | Error Crítico a Evitar |
+| :--- | :--- | :--- |
+| **1. Extracción de Archivos** | Obtener las tablas base de vanilla | Modificar archivos centrales del juego sin hacer una copia de seguridad |
+| **2. Definición de Arrays** | Configurar grupos y probabilidades de tiradas individuales | Configurar tiradas demasiado altas, haciendo que los objetos desborden el contenedor |
+| **3. Creación de Funciones** | Inyectar historia, colores personalizados y encantamientos | Escribir incorrectamente los IDs de encantamientos, lo que anula la modificación del objeto |
+| **4. Pruebas en el Juego** | Verificar las mecánicas de botín mediante comandos en creativo | Probar solo una vez en lugar de abrir más de 20 cofres para verificar el equilibrio |
+
+---
+
+## Equilibrar la Progresión: Diseñando Niveles de Recompensas Efectivos
+
+Al rediseñar encuentros subterráneos, resulta tentador llenar los cofres con objetos desmedidamente poderosos. Sin embargo, las pruebas de equilibrio de la comunidad demuestran que otorgar equipo de nivel supremo desde el principio elimina todo incentivo para construir granjas de supervivencia, explorar biomas o interactuar con las mecánicas básicas de fabricación.
+
+Organizar las recompensas en categorías por niveles genera un ciclo de juego muy atractivo. Los objetos de nivel alto deben sentirse escasos y difíciles de conseguir, mientras que las apariciones comunes deben aportar utilidad práctica para la supervivencia.
+
+| Nivel de Recompensa | Tasa de Aparición Objetivo | Objetos y Mecánicas de Ejemplo | Etapa de Exploración Prevista |
+| :--- | :--- | :--- | :--- |
+| **Nivel 1: Carroñero** | 60% – 70% | Vendajes (comida personalizada), pepitas de hierro, antorchas, flechas | Exploración inicial de superficie y cuevas |
+| **Nivel 2: Explorador** | 25% – 30% | Cota de malla con Protección II, herramientas con Eficiencia III, lingotes de hierro | Mazmorras intermedias, minas abandonadas |
+| **Nivel 3: Reliquia** | 5% – 8% | Armas con historia personalizada, Empuje II, pociones no fabricables | Estructuras de la oscuridad profunda, salas de monstruos remotas |
+| **Nivel 4: Mítico** | < 1% | Armas con atributos personalizados (+15% velocidad), mejoras de inframundita | Ciudades del End, ciudades antiguas, cámaras del juicio |
+
+Utilizar objetos vanilla modificados en lugar de introducir identificadores de mods externos mantiene la flexibilidad de tu mundo. La experiencia de los jugadores demuestra que los objetos personalizados mediante componentes y descripciones de historia se integran de forma natural en el juego, preservan el rendimiento del cliente y evitan inventarios corruptos si tu servidor retira mods de terceros en el futuro.
+
+---
+
+## Personalización Avanzada: Trabajando con Datos JSON
+
+Para ayudarte a comenzar, aquí tienes un ejemplo de una entrada de objeto que transforma una espada de hierro estándar en una reliquia de explorador. Este fragmento demuestra cómo las funciones aplican datos visuales únicos, encantamientos e historia:
+
+```json
+{
+  "type": "minecraft:item",
+  "name": "minecraft:iron_sword",
+  "weight": 5,
+  "functions": [
+    {
+      "function": "minecraft:set_name",
+      "name": {
+        "text": "Forgotten Cryptcleaver",
+        "color": "gold",
+        "italic": false
+      }
+    },
+    {
+      "function": "minecraft:set_lore",
+      "lore": [
+        {
+          "text": "Forged in the depths, stained by ancient battles.",
+          "color": "dark_purple",
+          "italic": true
+        }
+      ]
+    },
+    {
+      "function": "minecraft:enchant_with_levels",
+      "levels": {
+        "min": 15,
+        "max": 25
+      },
+      "treasure": false
+    }
+  ]
+}
+```
+
+Este fragmento JSON demuestra lo sencillo que resulta personalizar el **botín para crear mazmorras** que se sientan vivas. Al ajustar pesos, funciones y componentes de nombres, el equipamiento estándar adquiere identidad y valor emocional para el jugador que lo descubre.
+
+---
+
+## Pruebas y Solución de Errores Comunes de Configuración
+
+Una vez configurados los archivos, carga un mundo nuevo para probar la generación a fondo. No confíes en un solo cofre para evaluar tus tablas. Genera múltiples instancias de tu estructura objetivo mediante comandos como `/locate structure`, transpórtate a las coordenadas y revisa la distribución.
+
+| Síntoma | Causa Principal | Solución Comprobada |
+| :--- | :--- | :--- |
+| **Los cofres se generan vacíos** | Error de sintaxis dentro del archivo JSON | Pasa el texto por un validador JSON para identificar errores de sintaxis |
+| **El objeto aparece sin historia o nombre** | Sintaxis de función incorrecta o formato de componentes erróneo | Haz coincidir las claves de las funciones con la sintaxis específica de la versión de tu juego |
+| **Los objetos aparecen con demasiada frecuencia** | Los valores de peso están configurados muy altos respecto a otras entradas | Aumenta el peso de los objetos competidores o reduce el peso del objeto objetivo |
+| **Los objetos personalizados desaparecen al reiniciar** | La versión del juego es incompatible con los componentes del objeto | Asegúrate de que la versión del juego coincida exactamente con los requisitos de NBT/componentes |
+
+Para acelerar las pruebas, coloca un cofre frente a tu personaje, míralo fijamente y ejecuta el siguiente comando de depuración:
+
+`/loot replace block ~ ~ ~-1 container.0 loot minecraft:chests/simple_dungeon`
+
+Este comando ejecuta el algoritmo de generación de botín al instante, llenando el contenedor objetivo para que puedas verificar tus objetos, probabilidades de aparición y encantamientos en segundos sin tener que explorar todo el mapa.
+
+---
+
+## Preguntas Frecuentes
+
+### ¿Qué significa personalizar el botín para crear mazmorras?
+Personalizar el **botín para crear mazmorras** implica modificar las tablas de botín subyacentes (usando archivos JSON, datapacks o mods) que controlan los contenedores de las estructuras. Esto permite a los creadores reemplazar objetos estándar de vanilla por reliquias temáticas, armas con encantamientos personalizados y recompensas equilibradas para la progresión.
+
+### ¿Perderán los jugadores sus objetos personalizados si se desinstala el mod de botín?
+Si tu configuración modifica objetos vanilla mediante componentes, descripciones de historia y encantamientos estándar (en lugar de añadir bloques o IDs de objetos totalmente nuevos), los jugadores conservarán todo su equipamiento. Los objetos simplemente permanecen como ítems vanilla modificados dentro de la partida guardada del mundo.
+
+### ¿Cuál es la forma más segura de editar tablas de botín en versiones modernas?
+El método más limpio es crear un datapack independiente dentro de la carpeta `world/datapacks`. Los datapacks sobrescriben las tablas de recompensas deseadas sin alterar los archivos principales de la instalación, lo que facilita actualizarlos, respaldarlos y transferirlos entre diferentes mundos o servidores.
+
+### ¿Puedo cambiar las tasas de aparición de estructuras específicas sin afectar a otras?
+Sí. Cada estructura del juego hace referencia a su propio archivo de tabla único. Por ejemplo, modificar `simple_dungeon.json` solo alterará las salas con generadores de monstruos, dejando los cofres de vagonetas, pirámides del desierto y mansiones del bosque intactos, a menos que también decidas modificar esos archivos.

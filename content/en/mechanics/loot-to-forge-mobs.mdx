@@ -1,0 +1,210 @@
+export const metadata = {
+  title: "How to Add Custom Loot to Forge Mobs: Global Loot Modifiers Guide",
+  description: "Master adding custom loot to Forge mobs using Global Loot Modifiers. Learn JSON conditions, code setup, and mod compatibility best practices.",
+  category: "mechanics",
+  date: "2026-09-19",
+}
+
+Adding custom drops to hostile or passive creatures is essential when designing custom RPG progression or balanced modpacks. When you want to attach fresh loot to Forge mobs, overriding base datapack files often causes harsh compatibility conflicts with other creators' mods. Learning the clean, modern approach to inject custom loot to Forge mobs ensures your content works seamlessly alongside hundreds of other mods without breaking vanilla drop tables.
+
+Minecraft modding has evolved past the era of destructively replacing base game registries. Using modern Forge architecture, creators can selectively modify drop behavior using non-invasive hooks. Whether you are rewarding players with rare crafting reagents from Strays or designing unique boss rewards, this comprehensive guide explores the architecture, implementation steps, and troubleshooting techniques you need.
+
+## Why Global Loot Modifiers Are Essential for Forge Mobs
+
+In earlier versions of Minecraft, modders commonly altered drop behaviors by directly overriding the game's default loot tables (`data/minecraft/loot_tables/entities/...json`). While simple on paper, this practice is destructive. If two distinct mods attempt to replace the drops for a Zombie or a Stray, the mod loading last completely overwrites the other, causing items to vanish entirely from the game world.
+
+To eliminate this conflict, the Minecraft Forge development team introduced the Global Loot Modifier (GLM) system. GLMs sit between the game's internal drop calculations and the final item spawn event. Instead of replacing tables, GLMs listen to drop events, evaluate custom conditions, and dynamically append, remove, or modify items in real time.
+
+| Method | Compatibility Rating | Maintenance Effort | Risk of Mod Conflicts | Multi-Mod Safety |
+| :--- | :--- | :--- | :--- | :--- |
+| Direct JSON Overwrite | Very Low | High (breaks on game updates) | Severe (last mod wins) | Unsafe |
+| Custom LivingDropsEvent (Code only) | Medium | Medium (manual math required) | Low | Moderately Safe |
+| Global Loot Modifiers (GLM) | Exceptional | Low (data-driven JSON rules) | Minimal | Recommended Standard |
+| Mixin Injection | Low to Medium | Very High (fragile across versions) | Moderate to High | Advanced Only |
+
+By leveraging GLMs to supply loot to Forge mobs, you maintain standard Forge ecosystem hygiene. Your mod can inject custom gemstones, artifacts, or crafting materials into any vanilla or modded entity without interfering with any other developer's additions.
+
+## Core Architecture: The Two Halves of a Global Loot Modifier
+
+Implementing a Global Loot Modifier requires two components working in sync: Java code registration and JSON data definitions. The Java class defines *what action occurs* to the item list, while the JSON files determine *when and where* that action applies.
+
+```
+Your Mod Root
+├── src/main/java/com/yourname/mod/
+│   └── loot/
+│       └── AddItemModifier.java (The Java Logic & Serializer)
+└── src/main/resources/
+    └── data/
+        ├── forge/
+        │   └── loot_modifiers/
+        │       └── global_loot_modifiers.json (Master list)
+        └── your_mod_id/
+            └── loot_modifiers/
+                └── stray_frost_berry.json (Specific rule)
+```
+
+Understanding this separation prevents the most common developer mistakes. The Java class is intentionally reusable; a single `AddItemModifier` class can handle hundreds of distinct drops across dozens of different creatures merely through different JSON declarations.
+
+### Step 1: Writing the Java Modifier and Serializer
+
+In your Java mod source, you must extend Forge's base loot modifier class. This class reads the incoming list of items (`List<ItemStack>`), adds your specified item, and returns the modified list back to the engine.
+
+```java
+public class LootAdditionModifier extends LootModifier {
+    private final Item addition;
+
+    public LootAdditionModifier(LootItemCondition[] conditionsIn, Item addition) {
+        super(conditionsIn);
+        this.addition = addition;
+    }
+
+    @Nonnull
+    @Override
+    protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
+        generatedLoot.add(new ItemStack(this.addition));
+        return generatedLoot;
+    }
+
+    // Codec or Serializer registration depends on your exact Forge version
+}
+```
+
+The modifier extracts the item dynamically. Rather than hardcoding a specific mob into the Java code, you keep the class generic so that data packs can configure targeting conditions without recompiling your JAR.
+
+### Step 2: Registering the Modifier Serializer
+
+Forge requires your modifier's serializer to be registered in your mod's deferred registry. In modern versions, this is handled via `DeferredRegister<Codec<? extends IGlobalLootModifier>>` or `GlobalLootModifierSerializer`.
+
+```java
+public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIERS =
+    DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, "your_mod_id");
+
+public static final RegistryObject<Codec<LootAdditionModifier>> ADD_ITEM =
+    LOOT_MODIFIERS.register("add_item", () -> LootAdditionModifier.CODEC);
+```
+
+For official developer references, review the [Minecraft Forge Documentation](https://docs.minecraftforge.net/) regarding registry lifecycles and modern DataFixerUpper Codec patterns.
+
+## Target Configuration: Mapping Custom Loot to Forge Mobs
+
+Once the Java code compiles and the serializer registers under your namespace, all remaining logic happens inside JSON files. This architecture allows modpack creators and server owners to alter drop tables via server datapacks without touching source code.
+
+### The Master Registration File
+
+Forge scans a specific path for the list of active modifiers. You must place this file at `data/forge/loot_modifiers/global_loot_modifiers.json`.
+
+```json
+{
+  "replace": false,
+  "entries": [
+    "your_mod_id:stray_drops_berries",
+    "your_mod_id:zombie_rare_iron"
+  ]
+}
+```
+
+Setting `"replace": false` is critical. If you set it to `true`, you will disable all modifiers registered by earlier-loading mods, recreating the very compatibility problems GLMs were designed to fix.
+
+### Crafting Entity Conditions for Mobs
+
+To grant loot to Forge mobs accurately, you must target the entity using vanilla loot table conditions. Community reports from the official Forge support forums show that developers often struggle here: using block-breaking conditions instead of entity predicates causes drops to fail silently.
+
+Here is an example rule file placed at `data/your_mod_id/loot_modifiers/stray_drops_berries.json`:
+
+```json
+{
+  "type": "your_mod_id:add_item",
+  "conditions": [
+    {
+      "condition": "minecraft:entity_properties",
+      "predicate": {
+        "type": "minecraft:stray"
+      },
+      "entity": "this"
+    },
+    {
+      "condition": "minecraft:killed_by_player"
+    }
+  ],
+  "addition": "your_mod_id:frost_berries"
+}
+```
+
+| JSON Parameter | Role | Description |
+| :--- | :--- | :--- |
+| `type` | Serializer Identifier | Points to your mod's registered modifier serializer ID. |
+| `conditions` | Logic Filters | An array of vanilla predicates that must all return `true`. |
+| `entity` | Context Selector | Must be set to `"this"` to inspect the mob that just died. |
+| `predicate.type` | Entity ID | The ResourceLocation of the mob (e.g., `minecraft:blaze`). |
+| `addition` | Payload Item | The item registered in Forge to insert into drops. |
+
+In this configuration, whenever a player kills a Stray, the game matches the conditions, fires your modifier, and adds your custom berries to the default bones and arrows.
+
+## Advanced Drop Logic: Probabilities, Looting, and Biomes
+
+Basic 100% drop rates can quickly ruin gameplay balance. Fortunately, vanilla Minecraft's condition system supports extensive filtering logic without requiring extra Java development.
+
+### Adding Probabilistic Drop Rates
+
+If an item should only drop 15% of the time, add a `minecraft:random_chance` condition into the JSON array:
+
+```json
+{
+  "condition": "minecraft:random_chance",
+  "chance": 0.15
+}
+```
+
+### Factoring in the Looting Enchantment
+
+Rewarding players who use the Looting enchantment is standard design practice. To make drop rates scale according to weapon enchantments, employ `minecraft:random_chance_with_looting`:
+
+```json
+{
+  "condition": "minecraft:random_chance_with_looting",
+  "chance": 0.05,
+  "looting_multiplier": 0.02
+}
+```
+
+In this setup, killing the mob without Looting yields a 5% drop rate. Looting I raises it to 7%, Looting II to 9%, and Looting III provides an 11% total probability.
+
+### Condition Types Comparison
+
+| Condition Name | Use Case | Mob Drop Utility |
+| :--- | :--- | :--- |
+| `minecraft:entity_properties` | Target exact mob types or NBT tags | Essential for targeting specific mobs |
+| `minecraft:killed_by_player` | Prevent automated mob farm exploits | High (preserves server economy) |
+| `minecraft:damage_source_properties` | Require specific death causes (e.g., fire) | Great for specialized mob drop logic |
+| `minecraft:location_check` | Limit drops to specific biomes/dimensions | Ideal for regional mob variants |
+| `minecraft:random_chance` | Set static percentage drop chances | Essential for rare mob drops |
+
+Combining these conditions ensures that your items are only distributed when appropriate player actions occur.
+
+## Troubleshooting Common Drop Registration Errors
+
+When setting up custom loot to Forge mobs, subtle configuration mismatches can cause items to fail to drop. Based on player experience and mod development forum discussions, the following checklist resolves the vast majority of silent failures.
+
+| Issue | Symptom | Immediate Fix |
+| :--- | :--- | :--- |
+| Wrong Entity Context | Items drop from blocks, never mobs | Ensure `"entity": "this"` is inside `minecraft:entity_properties`. |
+| Serializer Name Mismatch | Game crashes during startup with JSON error | Verify the `"type"` string in your JSON matches your registry name. |
+| Missing from Master List | No crash, but zero custom items appear | Confirm your file name is listed in `global_loot_modifiers.json`. |
+| Datapack Path Typos | File loads fine, but logic never runs | Double-check folder structure: `data/<namespace>/loot_modifiers/`. |
+| Non-player Deaths | Items fail to drop in testing | Remove `minecraft:killed_by_player` if testing using `/kill`. |
+
+If drops still do not appear in-game, verify the game's debug logs. When Forge encounters an unparseable loot modifier file, it logs a warning during registry startup noting the exact line number where the JSON syntax or item registry name failed.
+
+## Frequently Asked Questions (FAQ)
+
+### Can I attach custom loot to Forge mobs added by other third-party mods?
+Yes. In the `minecraft:entity_properties` condition, replace the vanilla namespace with the target mod's namespace and entity ID (such as `twilightforest:naga` or `alexsmobs:crocodile`). As long as that mod registers its entities through standard Forge registries, Global Loot Modifiers will hook into them cleanly.
+
+### Do I need to create a new Java class for every single item drop?
+No. A single generic `LootAdditionModifier` class can be referenced by dozens of different JSON files. Each JSON file supplies its own unique item identifier and targeting conditions, allowing you to attach diverse loot to Forge mobs without writing repetitive code.
+
+### Can Global Loot Modifiers remove vanilla items from mob tables?
+Yes. Instead of using a simple `generatedLoot.add(...)` call in your Java logic, your modifier can inspect the `generatedLoot` collection and use `removeIf(...)` to strip away vanilla items like rotten flesh or bones under specific custom conditions.
+
+### Why won't my mob modifier work when using the `/kill` command?
+If your modifier includes the `minecraft:killed_by_player` condition, using `/kill` or letting mobs die from fall damage bypasses the rule. Always test drops by striking the mob directly with a survival or creative player character to fulfill player-kill predicates.

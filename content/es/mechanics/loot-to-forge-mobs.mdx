@@ -1,0 +1,210 @@
+export const metadata = {
+  title: "Cómo Añadir Botín Personalizado a Mobs de Forge: Guía de Global Loot Modifiers",
+  description: "Aprende a añadir botín personalizado a mobs de Forge mediante Global Loot Modifiers. Descubre condiciones JSON, configuración de código y compatibilidad.",
+  category: "mechanics",
+  date: "2026-09-19",
+}
+
+Añadir drops personalizados a criaturas hostiles o pasivas es fundamental al diseñar una progresión RPG a medida o modpacks equilibrados. Cuando deseas vincular nuevo botín a mobs de Forge, sobrescribir los archivos base del datapack suele generar graves conflictos de compatibilidad con los mods de otros creadores. Aprender el método moderno y limpio para inyectar botín personalizado a mobs de Forge garantiza que tu contenido funcione a la perfección junto a cientos de otros mods sin alterar las tablas de drops vanilla.
+
+El desarrollo de mods para Minecraft ha dejado atrás la era de reemplazar destructivamente los registros base del juego. Gracias a la arquitectura moderna de Forge, los creadores pueden modificar de forma selectiva el comportamiento de los drops utilizando hooks no invasivos. Ya sea que quieras recompensar a los jugadores con materiales de crafteo raros de los Glaciares (Strays) o diseñar recompensas exclusivas de jefes, esta guía completa explora la arquitectura, los pasos de implementación y las técnicas de resolución de problemas que necesitas.
+
+## Por Qué los Global Loot Modifiers Son Esenciales para los Mobs de Forge
+
+En versiones anteriores de Minecraft, los modders solían alterar los drops sobrescribiendo directamente las tablas de botín predeterminadas del juego (`data/minecraft/loot_tables/entities/...json`). Aunque parecía sencillo en teoría, esta práctica es destructiva. Si dos mods distintos intentan reemplazar los drops de un Zombi o de un Glaciar, el mod que cargue en último lugar sobrescribirá por completo al otro, haciendo que ciertos ítems desaparezcan por completo del mundo del juego.
+
+Para eliminar este conflicto, el equipo de desarrollo de Minecraft Forge introdujo el sistema de Global Loot Modifiers (GLM). Los GLM se sitúan entre los cálculos internos de drops del juego y el evento final de generación de la entidad del ítem. En lugar de reemplazar tablas, los GLM escuchan los eventos de botín, evalúan condiciones personalizadas y añaden, eliminan o modifican ítems dinámicamente en tiempo real.
+
+| Método | Nivel de Compatibilidad | Esfuerzo de Mantenimiento | Riesgo de Conflictos | Seguridad Multi-Mod |
+| :--- | :--- | :--- | :--- | :--- |
+| Sobrescribir JSON Directamente | Muy Bajo | Alto (se rompe con actualizaciones) | Grave (gana el último mod) | Inseguro |
+| LivingDropsEvent Personalizado (Solo código) | Medio | Medio (requiere cálculos manuales) | Bajo | Moderadamente Seguro |
+| Global Loot Modifiers (GLM) | Excepcional | Bajo (reglas JSON basadas en datos) | Mínimo | Estándar Recomendado |
+| Inyección con Mixin | Bajo a Medio | Muy Alto (frágil entre versiones) | Moderado a Alto | Solo Avanzado |
+
+Al aprovechar los GLM para suministrar botín a mobs de Forge, mantienes un ecosistema limpio y estandarizado. Tu mod puede inyectar gemas personalizadas, artefactos o materiales de crafteo en cualquier entidad vanilla o modificada sin interferir con las adiciones de ningún otro desarrollador.
+
+## Arquitectura Principal: Las Dos Partes de un Global Loot Modifier
+
+Implementar un Global Loot Modifier requiere dos componentes que trabajen en sincronía: el registro en código Java y las definiciones de datos en JSON. La clase de Java define *qué acción ocurre* en la lista de ítems, mientras que los archivos JSON determinan *cuándo y dónde* se aplica esa acción.
+
+```
+Raíz de Tu Mod
+├── src/main/java/com/tu_nombre/mod/
+│   └── loot/
+│       └── AddItemModifier.java (Lógica Java y Serializador)
+└── src/main/resources/
+    └── data/
+        ├── forge/
+        │   └── loot_modifiers/
+        │       └── global_loot_modifiers.json (Lista maestra)
+        └── tu_mod_id/
+            └── loot_modifiers/
+                └── stray_frost_berry.json (Regla específica)
+```
+
+Comprender esta separación evita los errores más comunes de desarrollo. La clase de Java es intencionadamente reutilizable; una única clase `AddItemModifier` puede gestionar cientos de drops distintos en docenas de criaturas diferentes simplemente mediante distintas declaraciones JSON.
+
+### Paso 1: Escribir el Modificador y Serializador en Java
+
+En el código fuente Java de tu mod, debes extender la clase base de modificadores de botín de Forge. Esta clase lee la lista entrante de ítems (`List<ItemStack>`), añade el ítem especificado y devuelve la lista modificada al motor del juego.
+
+```java
+public class LootAdditionModifier extends LootModifier {
+    private final Item addition;
+
+    public LootAdditionModifier(LootItemCondition[] conditionsIn, Item addition) {
+        super(conditionsIn);
+        this.addition = addition;
+    }
+
+    @Nonnull
+    @Override
+    protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
+        generatedLoot.add(new ItemStack(this.addition));
+        return generatedLoot;
+    }
+
+    // El registro del Codec o Serializador depende de tu versión exacta de Forge
+}
+```
+
+El modificador extrae el ítem de forma dinámica. En lugar de codificar de forma rígida un mob específico dentro del código Java, mantienes la clase genérica para que los datapacks puedan configurar las condiciones de objetivo sin necesidad de recompilar tu JAR.
+
+### Paso 2: Registrar el Serializador del Modificador
+
+Forge requiere que el serializador de tu modificador esté registrado en el registro diferido (deferred register) de tu mod. En las versiones modernas, esto se gestiona mediante `DeferredRegister<Codec<? extends IGlobalLootModifier>>` o `GlobalLootModifierSerializer`.
+
+```java
+public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIERS =
+    DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, "tu_mod_id");
+
+public static final RegistryObject<Codec<LootAdditionModifier>> ADD_ITEM =
+    LOOT_MODIFIERS.register("add_item", () -> LootAdditionModifier.CODEC);
+```
+
+Para consultar referencias oficiales de desarrollo, revisa la [Documentación de Minecraft Forge](https://docs.minecraftforge.net/) sobre los ciclos de vida de los registros y los patrones modernos de Codecs con DataFixerUpper.
+
+## Configuración del Objetivo: Asignar Botín Personalizado a Mobs de Forge
+
+Una vez que el código Java compila y el serializador se registra bajo tu namespace, toda la lógica restante ocurre dentro de los archivos JSON. Esta arquitectura permite a los creadores de modpacks y dueños de servidores alterar las tablas de botín mediante datapacks del servidor sin tocar una sola línea de código fuente.
+
+### El Archivo Maestro de Registro
+
+Forge busca la lista de modificadores activos en una ruta específica. Debes colocar este archivo en `data/forge/loot_modifiers/global_loot_modifiers.json`.
+
+```json
+{
+  "replace": false,
+  "entries": [
+    "tu_mod_id:stray_drops_berries",
+    "tu_mod_id:zombie_rare_iron"
+  ]
+}
+```
+
+Configurar `"replace": false` es fundamental. Si lo estableces en `true`, desactivarás todos los modificadores registrados por los mods que cargaron antes, recreando exactamente los mismos problemas de compatibilidad que los GLM fueron diseñados para resolver.
+
+### Crear Condiciones de Entidad para Mobs
+
+Para otorgar botín a mobs de Forge con precisión, debes seleccionar la entidad utilizando las condiciones de las tablas de botín vanilla. La experiencia comunitaria en los foros de soporte oficiales de Forge demuestra que muchos desarrolladores cometen errores en este paso: utilizar condiciones de rotura de bloques en lugar de predicados de entidad provoca que los drops fallen silenciosamente.
+
+Aquí tienes un archivo de regla de ejemplo ubicado en `data/tu_mod_id/loot_modifiers/stray_drops_berries.json`:
+
+```json
+{
+  "type": "tu_mod_id:add_item",
+  "conditions": [
+    {
+      "condition": "minecraft:entity_properties",
+      "predicate": {
+        "type": "minecraft:stray"
+      },
+      "entity": "this"
+    },
+    {
+      "condition": "minecraft:killed_by_player"
+    }
+  ],
+  "addition": "tu_mod_id:frost_berries"
+}
+```
+
+| Parámetro JSON | Rol | Descripción |
+| :--- | :--- | :--- |
+| `type` | Identificador del Serializador | Apunta al ID del serializador registrado por tu mod. |
+| `conditions` | Filtros Lógicos | Un array de predicados vanilla que deben devolver todos `true`. |
+| `entity` | Selector de Contexto | Debe establecerse en `"this"` para inspeccionar el mob que acaba de morir. |
+| `predicate.type` | ID de Entidad | El ResourceLocation del mob (por ejemplo, `minecraft:blaze`). |
+| `addition` | Ítem de Carga Útil | El ítem registrado en Forge que se insertará en los drops. |
+
+En esta configuración, cada vez que un jugador derrota a un Glaciar, el juego comprueba que se cumplen las condiciones, activa tu modificador y añade tus bayas personalizadas junto a los huesos y flechas habituales.
+
+## Lógica Avanzada de Drops: Probabilidades, Saqueo y Biomas
+
+Los ratios de drop básicos al 100% pueden arruinar rápidamente el equilibrio del juego. Afortunadamente, el sistema de condiciones de Minecraft vanilla admite una lógica de filtrado exhaustiva sin requerir desarrollo Java adicional.
+
+### Añadir Probabilidades de Drop
+
+Si un ítem solo debe caer el 15% de las veces, añade una condición `minecraft:random_chance` dentro del array JSON:
+
+```json
+{
+  "condition": "minecraft:random_chance",
+  "chance": 0.15
+}
+```
+
+### Integrar el Encantamiento Saqueo (Looting)
+
+Recompensar a los jugadores que utilizan el encantamiento Saqueo es una práctica de diseño estándar. Para hacer que los ratios de drop escalen en función de los encantamientos del arma, utiliza `minecraft:random_chance_with_looting`:
+
+```json
+{
+  "condition": "minecraft:random_chance_with_looting",
+  "chance": 0.05,
+  "looting_multiplier": 0.02
+}
+```
+
+En esta configuración, matar al mob sin Saqueo otorga un 5% de probabilidad de drop. Saqueo I lo eleva al 7%, Saqueo II al 9% y Saqueo III proporciona una probabilidad total del 11%.
+
+### Comparativa de Tipos de Condiciones
+
+| Nombre de la Condición | Caso de Uso | Utilidad en Drops de Mobs |
+| :--- | :--- | :--- |
+| `minecraft:entity_properties` | Seleccionar tipos exactos de mob o tags NBT | Esencial para apuntar a mobs específicos |
+| `minecraft:killed_by_player` | Evitar granjas automáticas de mobs | Alta (preserva la economía del servidor) |
+| `minecraft:damage_source_properties` | Exigir causas de muerte concretas (ej. fuego) | Excelente para lógicas de drop especializadas |
+| `minecraft:location_check` | Limitar drops a biomas o dimensiones específicas | Ideal para variantes regionales de mobs |
+| `minecraft:random_chance` | Configurar porcentajes estáticos de probabilidad | Esencial para drops raros de mobs |
+
+Combinar estas condiciones asegura que tus ítems solo se entreguen cuando ocurran las acciones apropiadas por parte del jugador.
+
+## Resolución de Errores Comunes en el Registro de Botín
+
+Al configurar botín personalizado para mobs de Forge, pequeños desajustes en la configuración pueden provocar que los ítems no aparezcan. A partir de la experiencia de la comunidad y las discusiones en foros de desarrollo de mods, la siguiente lista de verificación resuelve la gran mayoría de estos fallos silenciosos.
+
+| Problema | Síntoma | Solución Inmediata |
+| :--- | :--- | :--- |
+| Contexto de Entidad Erróneo | Los ítems caen de bloques, nunca de mobs | Asegúrate de incluir `"entity": "this"` dentro de `minecraft:entity_properties`. |
+| Nombre del Serializador No Coincide | El juego crashea al iniciar con un error de JSON | Comprueba que el string `"type"` en tu JSON coincida con el nombre registrado. |
+| Falta en la Lista Maestra | No hay crash, pero no aparece ningún ítem | Confirma que el nombre del archivo esté incluido en `global_loot_modifiers.json`. |
+| Errores Tipográficos en Datapack | El archivo carga bien, pero la lógica nunca se ejecuta | Revisa la estructura de carpetas: `data/<namespace>/loot_modifiers/`. |
+| Muertes No Causadas por Jugador | Los ítems no caen durante las pruebas | Elimina `minecraft:killed_by_player` si estás testeando con `/kill`. |
+
+Si los drops siguen sin aparecer en el juego, revisa los logs de depuración (debug logs). Cuando Forge encuentra un archivo de modificador de botín que no puede procesar, emite una advertencia durante el inicio del registro indicando la línea exacta donde falló la sintaxis JSON o el nombre de registro del ítem.
+
+## Preguntas Frecuentes (FAQ)
+
+### ¿Puedo vincular botín personalizado a mobs de Forge añadidos por otros mods de terceros?
+Sí. En la condición `minecraft:entity_properties`, sustituye el namespace vanilla por el namespace del mod de destino y su ID de entidad (como `twilightforest:naga` o `alexsmobs:crocodile`). Mientras ese mod registre sus entidades a través de los registros estándar de Forge, los Global Loot Modifiers se conectarán a ellas sin problemas.
+
+### ¿Necesito crear una nueva clase Java para cada drop de ítem?
+No. Una única clase genérica `LootAdditionModifier` puede ser referenciada por docenas de archivos JSON distintos. Cada archivo JSON proporciona su propio identificador único de ítem y sus condiciones de objetivo, lo que te permite asignar botín variado a mobs de Forge sin duplicar código.
+
+### ¿Pueden los Global Loot Modifiers eliminar ítems vanilla de las tablas de los mobs?
+Sí. En lugar de utilizar una llamada simple `generatedLoot.add(...)` en tu lógica de Java, tu modificador puede inspeccionar la colección `generatedLoot` y utilizar `removeIf(...)` para eliminar ítems vanilla como carne podrida o huesos bajo condiciones personalizadas específicas.
+
+### ¿Por qué mi modificador de mob no funciona cuando uso el comando `/kill`?
+Si tu modificador incluye la condición `minecraft:killed_by_player`, usar `/kill` o dejar que los mobs mueran por daño de caída invalida la regla. Prueba siempre los drops golpeando al mob directamente con un personaje en modo supervivencia o creativo para satisfacer los predicados de muerte por jugador.

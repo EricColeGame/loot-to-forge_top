@@ -1,0 +1,213 @@
+export const metadata = {
+  title: "Wie man benutzerdefinierten Loot in Forge Loot-Table-Einträge in Minecraft einfügt",
+  description: "Erfahren Sie, wie Sie benutzerdefinierten Loot in Forge-Loot-Table-Events einfügen, Items sauber registrieren und Dungeontruhen sowie Mob-Drops modifizieren, ohne die Mod-Kompatibilität zu gefährden.",
+  category: "rewards",
+  date: "2026-09-19",
+}
+
+Die Beherrschung des Item-Drop-Systems ist ein entscheidender Meilenstein für jeden Mod-Entwickler, der Erkundung und Kämpfe lohnend gestalten möchte. Wenn Sie sich dazu entscheiden, benutzerdefinierten **Loot zu Forge Loot Table**-Systemen hinzuzufügen, erhalten Sie die Möglichkeit, Dungeon-Truhen, Boss-Kämpfe und Weltstrukturen nahtlos zu befüllen. Zu wissen, wie Sie Ihren gemoddeten **Loot mit Forge Loot Table**-Registrierungen richtig verknüpfen, stellt sicher, dass Ihre Mod reibungslos mit dem restlichen Ökosystem zusammenarbeitet und gleichzeitig die Vanilla-Balance gewahrt bleibt.
+
+Das manuelle Manipulieren von Drop-Raten im Entity-Code oder in Container-Blöcken führt oft zu schweren Inkompatibilitäten. Stattdessen bietet Forge robuste Hooks, mit denen Sie Drop-Tabellen während der Ladezeit abfangen, registrieren und erweitern können. In diesem umfassenden Leitfaden analysieren wir die Dateiarchitektur, Event-Pipelines, benutzerdefinierte Bedingungen und die programmatische Generierung, die erforderlich sind, um Ihre Belohnungssysteme vollständig zu kontrollieren.
+
+---
+
+## Die Architektur von Loot-Tabellen in Minecraft Forge
+
+Loot-Tabellen fungieren als deklarative JSON-Definitionen, die der Spiel-Engine mitteilen, wie, wann und wie oft Gegenstände fallen gelassen werden. Egal, ob ein Spieler eine Wüstentempel-Truhe öffnet, einen Block abbaut oder einen Wither besiegt – die Engine wertet eine spezifische Tabelle aus.
+
+Um Tabellen reibungslos zu verwalten, erweitert Forge das Parsing-System von Vanilla-Minecraft durch das Durchsetzen von Namensstrukturen. Jeder Pool innerhalb einer benutzerdefinierten Loot-Tabelle muss ein explizites `name`-Attribut besitzen. Darüber hinaus erhalten einzelne Gegenstände innerhalb dieses Pools eine `entryName`-Kennung, die Forge automatisch generiert, sofern sie eindeutig ist, oder manuell verlangt, wenn identische Items unterschiedliche Drop-Funktionen nutzen.
+
+Die Hierarchie durchläuft mehrere verschiedene Ebenen:
+
+| Komponente | Rolle in der Hierarchie | Erforderliche Forge-Eigenschaften | Häufiger Einsatzzweck |
+| :--- | :--- | :--- | :--- |
+| **Table** | Container der obersten Ebene | ResourceLocation-Pfad | Definiert das vollständige Drop-Profil für einen Block, Mob oder eine Truhe. |
+| **Pool** | Gruppierung von Gegenständen | `name`, `rolls`, `entries` | Bestimmt, wie oft ein Item-Auswahlzyklus ausgeführt wird. |
+| **Entry** | Spezifisches Item oder Sub-Tabelle | `type`, `name`, `entryName` | Verweist auf das konkrete Registry-Item oder eine sekundäre JSON-Tabelle. |
+| **Condition** | Prädikat-Filter | `condition` | Entscheidet, ob ein Pool oder Entry qualifiziert ist (z. B. vom Spieler getötet). |
+| **Function** | Item-Modifikator | `function` | Modifiziert Item-Anzahlen, Metadaten, Verzauberungen oder NBT-Tags. |
+
+Das Verständnis dieser Struktur ermöglicht es Ihnen, benutzerdefinierte Belohnungsdaten einzufügen, ohne Basisdateien destruktiv zu überschreiben.
+
+---
+
+## Registrieren von benutzerdefinierten Tabellen und JSON-Dateien
+
+Bevor Sie Ihren benutzerdefinierten **Loot zu Forge Loot Table**-Listenern hinzufügen können, muss Minecraft auf Ihre eigenen JSON-Dateien aufmerksam gemacht werden. Dies erreichen Sie, indem Sie den Tabellen-Bezeichner während der Lebenszyklus-Phasen Ihrer Mod registrieren (z. B. Pre-Initialization, Initialization oder Post-Initialization).
+
+Tabellen werden unter den Mod-Asset-Ressourcen abgelegt:
+`assets/<modid>/loot_tables/<path_to_file>.json`
+
+```json
+{
+  "pools": [
+    {
+      "name": "rare_dungeon_rewards",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:golden_apple",
+          "weight": 20
+        },
+        {
+          "type": "empty",
+          "weight": 80
+        }
+      ]
+    }
+  ]
+}
+```
+
+Um der Spiel-Engine mitzuteilen, dass sie diese Datei lesen soll, registrieren Sie ihren Pfad mithilfe einer `ResourceLocation` über die Tabellen-Registrierungspipeline von Forge:
+
+```java
+// Registrieren einer Loot-Tabelle über ResourceLocation
+LootTableList.register(new ResourceLocation("mymod", "inject/simple_dungeon"));
+```
+
+Das vorzeitige Registrieren von Tabellen sorgt für eine saubere Trennung. Anstatt Item-Gewichtungen fest in Ihrer Java-Logik zu verdrahten, bleibt Ihr Balancing datengesteuert und leicht modifizierbar.
+
+---
+
+## Modifizieren vorhandener Truhen und Mob-Drops mit Events
+
+Ein häufiger Fehler von Modding-Einsteigern besteht darin, Basis-Tabellen vollständig zu überschreiben. Wenn zwei Mods `minecraft:chests/simple_dungeon.json` ersetzen, überschreibt die zuletzt ladende Mod die andere und löscht deren Drops aus. Forge löst dieses Problem über das `LootTableLoadEvent`.
+
+Dieses Event wird während der Spielinitialisierung einmal pro Tabelle ausgelöst. Indem Sie sich in diesen Hook einklinken, können Sie sicher einen sekundären Pool anhängen, der den benutzerdefinierten **Loot für Forge Loot Table**-Instanzen Ihrer Mod enthält.
+
+### Wie Forge Vanilla-Pools und -Entries benennt
+
+Vanilla-Tabellen besitzen in ihrer Quell-JSON keine eindeutigen Pool-Namen. Forge löst dies zur Laufzeit durch Zuweisung synthetisierter Namen:
+
+| Vanilla-Element | Von Forge generierter Name | Benennungsverhalten |
+| :--- | :--- | :--- |
+| Erster Pool | `main` | Wird von Tabellen verwendet, die nur einen anfänglichen Pool enthalten. |
+| Nachfolgende Pools | `pool1`, `pool2`, `pool3`... | Strikt basierend auf der Indexposition generiert. |
+| Eindeutiger Entry | Entspricht dem Item-Namen | Beispiel: `minecraft:iron_ingot`. |
+| Doppelter Entry | Hängt Index-Trennzeichen an | Beispiel: `minecraft:iron_ingot#0`, `minecraft:iron_ingot#1`. |
+
+Beim Hinzufügen Ihrer Drops gebietet es die Best Practice, Vanilla-Pools unberührt zu lassen. Erstellen Sie stattdessen einen neuen `LootPool`, der einen Sub-Tabellen-Eintrag (`LootEntryTable`) kapselt und direkt auf Ihre registrierte JSON verweist.
+
+```java
+@SubscribeEvent
+public void onLootTableLoad(LootTableLoadEvent evt) {
+    if (evt.getName().toString().equals("minecraft:chests/simple_dungeon")) {
+        LootEntry entry = new LootEntryTable(
+            new ResourceLocation("mymod:inject/simple_dungeon"), 
+            1, 0, new LootCondition[0], "injected_dungeon_entry"
+        );
+        
+        LootPool pool = new LootPool(
+            new LootEntry[] { entry }, 
+            new LootCondition[0], 
+            new RandomValueRange(1), 
+            new RandomValueRange(0), 
+            "mymod_injected_pool"
+        );
+        
+        evt.getTable().addPool(pool);
+    }
+}
+```
+
+### Vergleich von Truhen-Injektionszielen
+
+| Vanilla-Loot-Tabellen-Pfad | Biom / Struktur | Typischer Spieler-Loot | Beste Injektionsstrategie |
+| :--- | :--- | :--- | :--- |
+| `chests/simple_dungeon` | Unterirdische Spawner | Sättel, Schallplatten, Redstone | Geringes Gewicht (10–20 %), Fokus auf nützliche Utility-Items. |
+| `chests/desert_pyramid` | Wüsten-Biome | TNT, Diamanten, verzauberte Bücher | Mittlere Seltenheit, ergänzende Magie oder Mid-Tier-Ausrüstung. |
+| `chests/end_city_treasure`| Das Ende | Shulker-Ausrüstung, Elytren, Top-Verzauberungen | High-Tier-Endgame-Items, Artefakt-Drops. |
+| `chests/abandoned_mineshaft`| Untergrund | Schienen, Erze, Spitzhacken | Nützliche Schmuckstücke, Bergbau-Verbrauchsgegenstände, Fackeln. |
+
+Das Einfügen sekundärer Pools stellt sicher, dass selbst dann, wenn zehn andere Mods Items in die Wüstenpyramiden-Truhe einspeisen, alle unabhängig voneinander ausgeführt werden, ohne sich gegenseitig zu überschreiben. Schauen Sie in die offizielle [Minecraft Forge Documentation](https://docs.minecraftforge.net/), um Empfehlungen zum Lebenszyklus-Timing bei der Verwaltung globaler Registrys zu erhalten.
+
+---
+
+## Benutzerdefinierte Bedingungen, Funktionen und Entity-Eigenschaften
+
+Werden Gegenstände bedingungslos gedroppt, kann dies das Balancing Ihres Modpacks zerstören. Forge erlaubt es Ihnen, benutzerdefinierte Serialisierungslogik über Bedingungen (Conditions) und Funktionen (Functions) an Drop-Tabellen anzuhängen.
+
+### Erstellen von Bedingungen und Eigenschaften
+
+Eine `LootCondition` prüft einen booleschen Zustand:
+* Wurde das Entity von einem Spieler getötet?
+* Hat das Ziel-Entity gebrannt?
+* Trug der Plünderer eine Waffe mit einer bestimmten Verzauberung?
+
+Vanilla enthält die Bedingung `minecraft:entity_properties`, welche Parameter wie `minecraft:on_fire` unterstützt. Wenn Sie benutzerdefiniertes Tracking benötigen (z. B. die Überprüfung, ob ein eigener Statuseffekt aktiv ist), können Sie Ihre eigene `LootCondition` sowie einen `Serializer` implementieren und über `LootConditionManager.registerCondition()` registrieren.
+
+### Benutzerdefinierte Funktionen
+
+Loot-Funktionen modifizieren den resultierenden `ItemStack` unmittelbar vor dem Spawnen:
+
+| Loot-Funktion | Beschreibung | Praktischer Anwendungsfall |
+| :--- | :--- | :--- |
+| `minecraft:set_count` | Ändert die Stack-Größe | Droppen von 2 bis 5 Items statt nur 1. |
+| `minecraft:enchant_with_levels` | Wendet pseudozufällige Verzauberungen an | Truhenrüstung spawnt mit Verzauberungen der Stufen 20–30. |
+| `minecraft:looting_enchant` | Skaliert Drops basierend auf der Plünderung-Verzauberung | Seltene Mob-Drops, die mit höherer Schwertstufe zunehmen. |
+| `custom:apply_nbt_tag` | Fügt dem Item beliebige Daten hinzu | Mod-spezifisches Tracking, benutzerdefinierte Soulbound-Mechaniken. |
+
+Um komplexe Gegenstände wie benannte Waffen oder Relikte mit vordefinierten Tags hinzuzufügen, deklarieren Sie diese im `functions`-Array innerhalb Ihrer Sub-Tabellen-Einträge.
+
+---
+
+## Dynamisches Generieren von Loot-Tabellen im Java-Code
+
+Sie müssen sich nicht ausschließlich auf die Truhengenerierung oder Entity-Todes-Events verlassen. Manchmal erfordert Ihre Mod das dynamische Erzeugen zufälliger Drops, beispielsweise beim Rechtsklick auf eine benutzerdefinierte Belohnungskiste, beim Ernten einer eigenen Feldfrucht oder beim Abschluss einer Quest.
+
+Um dies zu erreichen, rufen Sie die Tabelle aus dem aktiven `World`-Manager ab, erstellen einen `LootContext` und werten die Drop-Liste direkt im Code aus.
+
+```java
+// 1. Tabellen-Instanz abrufen
+LootTable table = world.getLootTableManager()
+    .getLootTableFromLocation(new ResourceLocation("mymod:custom_reward_box"));
+
+// 2. Kontext aufbauen
+LootContext ctx = new LootContext.Builder((WorldServer) world)
+    .withPlayer(player)
+    .withLuck(player.getLuck())
+    .build();
+
+// 3. ItemStacks generieren
+List<ItemStack> generatedDrops = table.generateLootForPools(world.rand, ctx);
+
+// 4. Im Inventar ausgeben
+for (ItemStack stack : generatedDrops) {
+    if (!player.inventory.addItemStackToInventory(stack)) {
+        player.dropItem(stack, false);
+    }
+}
+```
+
+Dieser dynamische Ansatz ermöglicht es Ihren Item-Drops, Glücksmechaniken, Spielerattribute und Glücks-Modifikatoren (Fortune) zu berücksichtigen, während Sie die Belohnungen weiterhin extern in JSON-Dateien anpassen können.
+
+---
+
+## Best Practices für Mod-Balancing und Kompatibilität
+
+Das Einfügen von eigenem **Loot in Forge Loot Table**-Pools erfordert eine sorgfältige Abwägung des Spielfortschritts. Den Erfahrungen von Spielern in großen Modpacks nach ist eine schlecht ausbalancierte Dungeon-Injektion einer der schnellsten Wege, das Survival-Erlebnis zu ruinieren.
+
+Befolgen Sie diese Faustregeln, um Ihre Mod ausgewogen zu halten:
+
+1. **Leere Gewichtungen (Empty Weights) einbinden**: Wenn Sie einen Pool einfügen, dessen Rolls auf 1 gesetzt sind, fügen Sie immer einen Eintrag vom Typ `"empty"` hinzu. Hat Ihr Item das Gewicht 10 und empty das Gewicht 90, droppt es in 10 % der Fälle. Lassen Sie den leeren Eintrag weg, droppt es zu 100 %.
+2. **Niemals bestehende Pools leeren**: Vermeiden Sie den Aufruf von `evt.getTable().removePool(...)`, es sei denn, Ihre Mod ist explizit darauf ausgelegt, Vanilla-Belohnungen komplett zu überarbeiten. Das Entfernen von Pools bricht Annahmen von Vanilla und anderen Mods.
+3. **World-Save-Overrides respektieren**: Benutzer und Modpack-Ersteller können Data-Packs oder Überschreibungen auf Speicherebene im World-Ordner bereitstellen. Forge löst für Konfigurationsdateien aus dem World-Save absichtlich keine Load-Events aus, um Anpassungen der Spieler zu schützen.
+4. **Alles eindeutig benennen**: Stellen Sie Pool- und Eintragsnamen immer Ihre Mod-ID voran (z. B. `mymod_inject_pool`), um Namenskollisionen mit anderen Entwicklerteams zu vermeiden.
+
+---
+
+## Häufig gestellte Fragen (FAQ)
+
+### Was passiert, wenn ich keinen Namen für meinen benutzerdefinierten Loot-Pool angebe?
+Forge schreibt vor, dass alle gemoddeten Loot-Pools ein explizites `name`-Feld in ihrer JSON-Konfiguration definieren. Fehlt dieser Tag, bricht Forge den Vorgang ab oder stürzt während der Deserialisierung der Tabelle ab. Der Name ist zwingend erforderlich, damit andere Mods und Event-Listener Pools über Laufzeit-Hooks identifizieren und manipulieren können.
+
+### Kann ich Vanilla-Drops entfernen, anstatt neuen Loot zu Forge Loot Table-Einträgen hinzuzufügen?
+Ja. Während des `LootTableLoadEvent` können Sie vorhandene Pools mittels `evt.getTable().getPool("main")` inspizieren und bestimmte Einträge über `pool.removeEntry("minecraft:iron_ingot")` entfernen. Community-Erfahrungen raten jedoch dazu, dies nur sehr sparsam einzusetzen, da das Entfernen von Standard-Drops Progressionsannahmen in Vanilla-Rezepten oder Drittanbieter-Mods zerstören kann.
+
+### Warum erscheinen meine injizierten Loot-Tabellen nicht in Spielständen?
+Wenn ein Spieler oder Modpack benutzerdefinierte Overrides im Ordner `saves/<world>/data/loot_tables/` verwendet, überspringt Forge das `LootTableLoadEvent` für diese spezifischen Dateien ganz bewusst. Konfigurationen im Welt-Speicherstand werden als absolute Benutzerkonfigurationen behandelt und haben Vorrang vor Event-Injektionen auf Mod-Ebene.
+
+### Wie kann ich dafür sorgen, dass gemoddete Items nur droppen, wenn das Entity von einem Spieler getötet wurde?
+Fügen Sie die Bedingung `minecraft:killed_by_player` zu Ihrer Pool- oder Entry-JSON hinzu. Wenn Sie alternativ einen Kontext für **Loot zu Forge Loot Table**-Systemen programmatisch auswerten, stellen Sie sicher, dass Sie `.withPlayer(player)` an den `LootContext.Builder` übergeben, damit die Bedingung als wahr (`true`) gewertet wird.

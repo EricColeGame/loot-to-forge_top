@@ -1,0 +1,210 @@
+export const metadata = {
+  title: "So fügen Sie Forge-Mobs benutzerdefinierten Loot hinzu: Global Loot Modifiers Guide",
+  description: "Meistern Sie das Hinzufügen von benutzerdefiniertem Loot zu Forge-Mobs mit Global Loot Modifiers. Lernen Sie JSON-Bedingungen, Code-Setup und Best Practices für Mod-Kompatibilität.",
+  category: "mechanics",
+  date: "2026-09-19",
+}
+
+Das Hinzufügen von benutzerdefinierten Drops zu feindseligen oder friedlichen Kreaturen ist unverzichtbar beim Entwerfen einer eigenen RPG-Progression oder balancierter Modpacks. Wenn Sie Forge-Mobs neue Beute zuweisen möchten, führt das Überschreiben der standardmäßigen Datapack-Dateien häufig zu schweren Kompatibilitätskonflikten mit den Mods anderer Entwickler. Das Erlernen des sauberen, modernen Ansatzes zum Injizieren von benutzerdefiniertem Loot in Forge-Mobs stellt sicher, dass Ihre Inhalte nahtlos neben Hunderten von anderen Mods funktionieren, ohne die Vanilla-Loot-Tabellen zu beschädigen.
+
+Das Minecraft-Modding hat die Ära des destruktiven Ersetzens von Basisspiel-Registrierungen hinter sich gelassen. Mithilfe der modernen Forge-Architektur können Entwickler das Drop-Verhalten über nicht-invasive Hooks gezielt anpassen. Egal, ob Sie Spieler mit seltenen Handwerksmaterialien von Eiswanderern (Strays) belohnen oder einzigartige Boss-Belohnungen gestalten möchten: Dieser umfassende Leitfaden führt Sie durch die Architektur, die Implementierungsschritte und die Techniken zur Fehlerbehebung, die Sie benötigen.
+
+## Warum Global Loot Modifiers für Forge-Mobs unverzichtbar sind
+
+In früheren Versionen von Minecraft änderten Modder das Drop-Verhalten üblicherweise, indem sie die Standard-Loot-Tabellen des Spiels (`data/minecraft/loot_tables/entities/...json`) direkt überschrieben. Was in der Theorie einfach klingt, ist in der Praxis destruktiv: Versuchen zwei verschiedene Mods, die Drops für einen Zombie oder einen Eiswanderer zu ersetzen, überschreibt die zuletzt geladene Mod die andere vollständig. Dies führt dazu, dass Items komplett aus der Spielwelt verschwinden.
+
+Um diesen Konflikt zu lösen, hat das Entwicklerteam von Minecraft Forge das System der Global Loot Modifiers (GLM) eingeführt. GLMs klinken sich zwischen die internen Drop-Berechnungen des Spiels und das finale Item-Spawn-Event ein. Anstatt Tabellen zu ersetzen, lauschen GLMs auf Drop-Events, werten benutzerdefinierte Bedingungen aus und fügen Gegenstände in Echtzeit dynamisch hinzu, entfernen sie oder passen sie an.
+
+| Methode | Kompatibilitäts-Bewertung | Wartungsaufwand | Risiko von Mod-Konflikten | Multi-Mod-Sicherheit |
+| :--- | :--- | :--- | :--- | :--- |
+| Direktes JSON-Überschreiben | Sehr gering | Hoch (bricht bei Spiel-Updates) | Schwerwiegend (letzte Mod gewinnt) | Unsicher |
+| Benutzerdefiniertes LivingDropsEvent (nur Code) | Mittel | Mittel (manuelle Mathematik erforderlich) | Gering | Mäßig sicher |
+| Global Loot Modifiers (GLM) | Außergewöhnlich | Gering (datengesteuerte JSON-Regeln) | Minimal | Empfohlener Standard |
+| Mixin-Injektion | Gering bis mittel | Sehr hoch (anfällig über Versionen hinweg) | Moderat bis hoch | Nur für Fortgeschrittene |
+
+Indem Sie GLMs nutzen, um Forge-Mobs mit Loot zu versorgen, wahren Sie die Best Practices des Forge-Ökosystems. Ihre Mod kann benutzerdefinierte Edelsteine, Artefakte oder Handwerksmaterialien in jede beliebige Vanilla- oder Mod-Entity einspeisen, ohne die Ergänzungen anderer Entwickler zu stören.
+
+## Kernarchitektur: Die zwei Bausteine eines Global Loot Modifiers
+
+Die Implementierung eines Global Loot Modifiers erfordert zwei Komponenten, die synchron zusammenarbeiten: Java-Code-Registrierung und JSON-Datendefinitionen. Die Java-Klasse legt fest, *welche Aktion* mit der Item-Liste geschieht, während die JSON-Dateien bestimmen, *wann und wo* diese Aktion ausgeführt wird.
+
+```
+Ihr Mod-Root
+├── src/main/java/com/yourname/mod/
+│   └── loot/
+│       └── AddItemModifier.java (Die Java-Logik & der Serializer)
+└── src/main/resources/
+    └── data/
+        ├── forge/
+        │   └── loot_modifiers/
+        │       └── global_loot_modifiers.json (Master-Liste)
+        └── your_mod_id/
+            └── loot_modifiers/
+                └── stray_frost_berry.json (Spezifische Regel)
+```
+
+Das Verständnis dieser Trennung verhindert die häufigsten Entwicklerfehler. Die Java-Klasse ist bewusst wiederverwendbar gestaltet: Eine einzige `AddItemModifier`-Klasse kann Hunderte verschiedener Drops für Dutzende unterschiedlicher Kreaturen allein durch separate JSON-Deklarationen steuern.
+
+### Schritt 1: Schreiben des Java-Modifiers und Serializers
+
+Im Quellcode Ihrer Java-Mod müssen Sie die Basisklasse von Forges Loot-Modifier erweitern. Diese Klasse liest die eingehende Liste von Gegenständen (`List<ItemStack>`), fügt Ihr gewünschtes Item hinzu und gibt die geänderte Liste an die Engine zurück.
+
+```java
+public class LootAdditionModifier extends LootModifier {
+    private final Item addition;
+
+    public LootAdditionModifier(LootItemCondition[] conditionsIn, Item addition) {
+        super(conditionsIn);
+        this.addition = addition;
+    }
+
+    @Nonnull
+    @Override
+    protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
+        generatedLoot.add(new ItemStack(this.addition));
+        return generatedLoot;
+    }
+
+    // Codec- oder Serializer-Registrierung hängt von Ihrer genauen Forge-Version ab
+}
+```
+
+Der Modifier extrahiert das Item dynamisch. Anstatt ein bestimmtes Mob fest im Java-Code zu verdrahten, halten Sie die Klasse generisch, damit Datapacks die Zielbedingungen konfigurieren können, ohne dass Sie Ihre JAR neu kompilieren müssen.
+
+### Schritt 2: Registrieren des Modifier-Serializers
+
+Forge verlangt, dass der Serializer Ihres Modifiers im Deferred Register Ihrer Mod registriert wird. In modernen Versionen geschieht dies über `DeferredRegister<Codec<? extends IGlobalLootModifier>>` oder `GlobalLootModifierSerializer`.
+
+```java
+public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIERS =
+    DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, "your_mod_id");
+
+public static final RegistryObject<Codec<LootAdditionModifier>> ADD_ITEM =
+    LOOT_MODIFIERS.register("add_item", () -> LootAdditionModifier.CODEC);
+```
+
+Offizielle Entwicklerreferenzen finden Sie in der [Minecraft Forge Dokumentation](https://docs.minecraftforge.net/) zu Registry-Lebenszyklen und modernen DataFixerUpper-Codec-Mustern.
+
+## Zielkonfiguration: Zuweisung von benutzerdefiniertem Loot an Forge-Mobs
+
+Sobald der Java-Code kompiliert ist und der Serializer unter Ihrem Namespace registriert wurde, findet die restliche Logik vollständig in JSON-Dateien statt. Diese Architektur ermöglicht es Modpack-Erstellern und Server-Betreibern, Drop-Tabellen über Server-Datapacks zu verändern, ohne den Quellcode bearbeiten zu müssen.
+
+### Die Master-Registrierungsdatei
+
+Forge sucht an einem fest vorgegebenen Pfad nach der Liste der aktiven Modifier. Sie müssen diese Datei unter `data/forge/loot_modifiers/global_loot_modifiers.json` anlegen.
+
+```json
+{
+  "replace": false,
+  "entries": [
+    "your_mod_id:stray_drops_berries",
+    "your_mod_id:zombie_rare_iron"
+  ]
+}
+```
+
+Das Setzen von `"replace": false` ist entscheidend. Wenn Sie diesen Wert auf `true` setzen, deaktivieren Sie alle Modifier, die von zuvor geladenen Mods registriert wurden, und schaffen genau jene Kompatibilitätsprobleme wieder, die GLMs eigentlich verhindern sollten.
+
+### Erstellen von Entity-Bedingungen für Mobs
+
+Um Forge-Mobs präzise mit Beute zu versehen, müssen Sie die Entity mithilfe der standardmäßigen Loot-Tabellen-Bedingungen von Vanilla anvisieren. Community-Berichte aus den offiziellen Forge-Supportforen zeigen, dass Entwickler hier häufig auf Probleme stoßen: Die Verwendung von Block-Abbau-Bedingungen anstelle von Entity-Prädikaten führt dazu, dass Drops geräuschlos ausbleiben.
+
+Hier ist ein Beispiel für eine Regeldatei unter `data/your_mod_id/loot_modifiers/stray_drops_berries.json`:
+
+```json
+{
+  "type": "your_mod_id:add_item",
+  "conditions": [
+    {
+      "condition": "minecraft:entity_properties",
+      "predicate": {
+        "type": "minecraft:stray"
+      },
+      "entity": "this"
+    },
+    {
+      "condition": "minecraft:killed_by_player"
+    }
+  ],
+  "addition": "your_mod_id:frost_berries"
+}
+```
+
+| JSON-Parameter | Rolle | Beschreibung |
+| :--- | :--- | :--- |
+| `type` | Serializer-Identifikator | Verweist auf die registrierte Modifier-Serializer-ID Ihrer Mod. |
+| `conditions` | Logikfilter | Ein Array von Vanilla-Prädikaten, die alle `true` zurückgeben müssen. |
+| `entity` | Kontext-Selektor | Muss auf `"this"` gesetzt sein, um den Mob zu prüfen, der gerade gestorben ist. |
+| `predicate.type` | Entity-ID | Die ResourceLocation des Mobs (z. B. `minecraft:blaze`). |
+| `addition` | Payload-Item | Das in Forge registrierte Item, das den Drops hinzugefügt werden soll. |
+
+In dieser Konfiguration gleicht das Spiel die Bedingungen ab, sobald ein Spieler einen Eiswanderer tötet, führt Ihren Modifier aus und fügt Ihre benutzerdefinierten Beeren den standardmäßigen Knochen und Pfeilen hinzu.
+
+## Fortgeschrittene Drop-Logik: Wahrscheinlichkeiten, Plünderung und Biome
+
+Feste Drop-Raten von 100 % können die Spielbalance schnell zerstören. Glücklicherweise unterstützt das Bedingungssystem von Vanilla Minecraft umfangreiche Filterlogiken, ohne dass zusätzlicher Java-Code geschrieben werden muss.
+
+### Hinzufügen von probabilistischen Drop-Raten
+
+Soll ein Gegenstand nur in 15 % der Fälle fallen gelassen werden, fügen Sie die Bedingung `minecraft:random_chance` in das JSON-Array ein:
+
+```json
+{
+  "condition": "minecraft:random_chance",
+  "chance": 0.15
+}
+```
+
+### Einbeziehung der Plünderung-Verzauberung (Looting)
+
+Das Belohnen von Spielern, die die Plünderung-Verzauberung nutzen, gehört zum Standarddesign. Um Drop-Raten anhand von Waffenverzauberungen skalieren zu lassen, verwenden Sie `minecraft:random_chance_with_looting`:
+
+```json
+{
+  "condition": "minecraft:random_chance_with_looting",
+  "chance": 0.05,
+  "looting_multiplier": 0.02
+}
+```
+
+Bei diesem Setup führt das Besiegen des Mobs ohne Plünderung zu einer Drop-Wahrscheinlichkeit von 5 %. Plünderung I erhöht sie auf 7 %, Plünderung II auf 9 % und Plünderung III sorgt für eine Gesamtwahrscheinlichkeit von 11 %.
+
+### Vergleich der Bedingungstypen
+
+| Name der Bedingung | Anwendungsfall | Nutzen für Mob-Drops |
+| :--- | :--- | :--- |
+| `minecraft:entity_properties` | Exakte Mob-Typen oder NBT-Tags anvisieren | Unverzichtbar zum Ansteuern bestimmter Mobs |
+| `minecraft:killed_by_player` | Exploits durch automatisierte Mob-Farmen verhindern | Hoch (schützt die Server-Wirtschaft) |
+| `minecraft:damage_source_properties` | Bestimmte Todesursachen verlangen (z. B. Feuer) | Ideal für spezialisierte Mob-Drop-Logiken |
+| `minecraft:location_check` | Drops auf bestimmte Biome/Dimensionen beschränken | Perfekt für regionale Mob-Varianten |
+| `minecraft:random_chance` | Statische prozentuale Drop-Chancen festlegen | Essenziell für seltene Mob-Drops |
+
+Die Kombination dieser Bedingungen stellt sicher, dass Ihre Items nur dann vergeben werden, wenn die passenden Spieleraktionen stattgefunden haben.
+
+## Fehlerbehebung bei häufigen Drop-Registrierungsfehlern
+
+Beim Einrichten von benutzerdefiniertem Loot für Forge-Mobs können minimale Konfigurationsfehler dazu führen, dass Items nicht gedroppt werden. Basierend auf Spieler-Erfahrungen und Diskussionen in Mod-Entwicklungsforen löst die folgende Checkliste die überwiegende Mehrheit stummer Fehler.
+
+| Problem | Symptom | Sofortige Lösung |
+| :--- | :--- | :--- |
+| Falscher Entity-Kontext | Items droppen von Blöcken, nie von Mobs | Stellen Sie sicher, dass `"entity": "this"` in `minecraft:entity_properties` gesetzt ist. |
+| Serializer-Namenskonflikt | Spiel stürzt beim Start mit einem JSON-Fehler ab | Prüfen Sie, ob der `"type"`-String in der JSON exakt mit dem Registrierungsnamen übereinstimmt. |
+| Fehlender Eintrag in Master-Liste | Kein Absturz, aber es erscheinen keinerlei Custom-Items | Bestätigen Sie, dass Ihr Dateiname in `global_loot_modifiers.json` aufgeführt ist. |
+| Tippfehler im Datapack-Pfad | Datei lädt fehlerfrei, aber Logik wird nie ausgeführt | Ordnerstruktur doppelt prüfen: `data/<namespace>/loot_modifiers/`. |
+| Nicht-Spieler-Tode | Items droppen bei Tests nicht | Entfernen Sie `minecraft:killed_by_player`, wenn Sie mit `/kill` testen. |
+
+Sollten die Drops im Spiel weiterhin ausbleiben, überprüfen Sie die Debug-Logs. Sobald Forge auf eine fehlerhafte Loot-Modifier-Datei stößt, wird beim Start der Registrierung eine Warnung protokolliert, die die genaue Zeilennummer enthält, an der die JSON-Syntax oder der Item-Registrierungsname fehlerhaft war.
+
+## Häufig gestellte Fragen (FAQ)
+
+### Kann ich Mobs benutzerdefinierten Loot hinzufügen, die von Drittanbieter-Mods stammen?
+Ja. Ersetzen Sie in der Bedingung `minecraft:entity_properties` einfach den Vanilla-Namespace durch den Namespace und die Entity-ID der Ziel-Mod (wie etwa `twilightforest:naga` oder `alexsmobs:crocodile`). Solange diese Mod ihre Entities über die Standard-Forge-Registrierungen registriert, greifen Global Loot Modifiers nahtlos darauf zu.
+
+### Muss ich für jeden einzelnen Item-Drop eine neue Java-Klasse erstellen?
+Nein. Eine einzige generische `LootAdditionModifier`-Klasse kann von Dutzenden verschiedenen JSON-Dateien referenziert werden. Jede JSON-Datei definiert ihre eigene Item-ID und ihre individuellen Bedingungen, sodass Sie Forge-Mobs unterschiedlichste Beute zuweisen können, ohne redundanten Code schreiben zu müssen.
+
+### Können Global Loot Modifiers auch Vanilla-Items aus Mob-Tabellen entfernen?
+Ja. Anstelle eines simplen `generatedLoot.add(...)`-Aufrufs in Ihrer Java-Logik kann Ihr Modifier die `generatedLoot`-Sammlung analysieren und über `removeIf(...)` Vanilla-Items wie verrottetes Fleisch oder Knochen unter bestimmten Bedingungen gezielt entfernen.
+
+### Warum funktioniert mein Mob-Modifier nicht, wenn ich den Befehl `/kill` verwende?
+Wenn Ihr Modifier die Bedingung `minecraft:killed_by_player` enthält, wird diese Regel umgangen, sobald Sie `/kill` nutzen oder Mobs durch Fallschaden sterben. Testen Sie Drops stets, indem Sie den Mob direkt mit einem Survival- oder Creative-Spielercharakter angreifen, um Prädikate für Spielertötungen zu erfüllen.

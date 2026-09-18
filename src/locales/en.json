@@ -7,9 +7,13 @@
     "legalNotice": "Non-official fan wiki. Made by players, for players."
   },
   "nav": {
-    "home": "Home",
-    "menu": "Menu",
-    "toggleTheme": "Toggle theme"
+    "guide": "Guide",
+    "codes": "Codes",
+    "items": "Items",
+    "mechanics": "Mechanics",
+    "progression": "Progression",
+    "rewards": "Rewards",
+    "community": "Community"
   },
   "home": {
     "meta": {
@@ -66,66 +70,10 @@
       "eyebrow": "Popular Pages",
       "title": "Trending Now",
       "quickLinks": [
-        "Hollow Progression",
+        "Forging & Crafting",
         "Fastest Leveling",
-        "Spirit Charms",
-        "All Boss Guides"
-      ],
-      "cards": [
-        {
-          "badge": "Beginner",
-          "title": "Beginner Guide",
-          "description": "Everything you need from your first login to mastering the basics of combat and progression.",
-          "href": "/beginner-guide"
-        },
-        {
-          "badge": "Updated",
-          "title": "Active Codes",
-          "description": "All working codes with rewards redeem before they expire.",
-          "href": "/codes"
-        },
-        {
-          "badge": "Updated",
-          "title": "Equipment Database",
-          "description": "94 items across 5 slots complete gear database with stats, rarity, and sources.",
-          "href": "/equipment"
-        },
-        {
-          "badge": "Popular",
-          "title": "Which Race Should You Pick?",
-          "description": "Shinigami, Quincy, or Hollow compare all three and find your perfect playstyle.",
-          "href": "/races/best-race"
-        },
-        {
-          "badge": "New",
-          "title": "Enemies & Monsters",
-          "description": "23 enemy types across 5 regions drops, locations, and farming tips.",
-          "href": "/enemies"
-        },
-        {
-          "badge": "Popular",
-          "title": "Boss Locations & Drops",
-          "description": "Every boss location, drop table, and respawn timer in one reference.",
-          "href": "/boss-locations-drops-respawn-times"
-        },
-        {
-          "badge": "Popular",
-          "title": "Best Builds",
-          "description": "Optimal stat allocation, skill tree picks, and Charm combos for every playstyle.",
-          "href": "/builds/best-builds"
-        },
-        {
-          "badge": "New",
-          "title": "Shikai Tier List",
-          "description": "All 6 Shinigami Shikai types ranked by PvP and PvE performance.",
-          "href": "/tier-list/shikai"
-        },
-        {
-          "badge": "New",
-          "title": "World Events Guide",
-          "description": "Supply Caches, Raids, and endgame world events with rare rewards.",
-          "href": "/world-events"
-        }
+        "Strongest Sword",
+        "Dungeon Routes"
       ]
     },
     "aboutGame": {
@@ -447,10 +395,39 @@
       "secondary": "Play on Roblox"
     }
   },
-  "bosses": {},
+  "guide": {
+    "overviewTitle": "Loot to Forge Guide",
+    "overviewDescription": "Start here for Loot to Forge beginner guides, tips, and step-by-step walkthroughs covering the core loot, forge, and dungeon loop from your first run to a full Power build."
+  },
+  "codes": {
+    "overviewTitle": "Loot to Forge Codes",
+    "overviewDescription": "Track working Loot to Forge codes, see what each reward grants, and learn the in-game reward systems that hand out free Coins and ores while no codes are live."
+  },
+  "items": {
+    "overviewTitle": "Loot to Forge Items & Weapons",
+    "overviewDescription": "Browse Loot to Forge weapons, gear, and recipes with their stats and sources, plus picks for the best items and the strongest sword you can forge."
+  },
+  "mechanics": {
+    "overviewTitle": "Loot to Forge Mechanics",
+    "overviewDescription": "Understand the systems behind Loot to Forge: forging, crafting, combat, damage scaling, dungeons, and the mobs that guard every floor."
+  },
+  "progression": {
+    "overviewTitle": "Loot to Forge Progression",
+    "overviewDescription": "Plan your Loot to Forge progression with guides to levels, upgrades, rebirth, stages, gems, and the secrets that speed up every stage of the climb."
+  },
+  "rewards": {
+    "overviewTitle": "Loot to Forge Rewards",
+    "overviewDescription": "See the full Loot to Forge loot table, rare drops, legendary weapons, and secret items, with the farming routes that make each reward drop faster."
+  },
+  "community": {
+    "overviewTitle": "Loot to Forge Community",
+    "overviewDescription": "Find the Loot to Forge community across Discord, Reddit, and update channels, and follow the patch notes that add new loot, weapons, and dungeon floors."
+  },
   "shared": {
     "wikiNavigation": "Wiki Navigation",
     "activeCodes": "Active Codes",
+    "menu": "Menu",
+    "toggleTheme": "Toggle theme",
     "updated": "Updated",
     "viewAllCodes": "View all codes",
     "playOnRoblox": "Play on Roblox",
@@ -476,11 +453,10 @@
     "playGame": "Play Loot to Forge on Roblox",
     "officialDiscord": "Roblox Discord",
     "officialYoutube": "Roblox YouTube",
-    "vvBuilder": "Forging & Upgrade Guide",
     "beginnerGuide": "Beginner Guide",
-    "raceGuides": "Race Guides",
-    "bossGuides": "Boss Guides",
-    "buildGuide": "Build Guide",
+    "codesGuide": "Codes & Rewards",
+    "itemsGuide": "Items & Weapons",
+    "progressionGuide": "Progression & Rebirth",
     "privacyPolicy": "Privacy Policy",
     "termsOfService": "Terms of Service"
   }

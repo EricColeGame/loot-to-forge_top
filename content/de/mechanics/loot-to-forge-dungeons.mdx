@@ -1,0 +1,180 @@
+export const metadata = {
+  title: "So konfigurierst du Beute für Forge-Dungeons: Vollständige Anpassungsanleitung",
+  description: "Erfahre, wie du Beute für Dungeons in Minecraft anpasst. Meistere Beutetabellen, JSON-Bearbeitung, Datenpakete und Modding-Mechaniken für epische Belohnungen.",
+  category: "mechanics",
+  date: "2026-09-19",
+}
+
+Das Öffnen einer bemoosten Truhe tief unter der Erde sollte sich anfühlen wie das Entdecken einer königlichen Schatzkammer, doch die standardmäßigen Vanilla-Belohnungen lassen Spieler oft enttäuscht zurück. Wenn du dich daran machst, die **Beute für Dungeons anzupassen** und sie in packende Herausforderungen zu verwandeln, machst du aus monotonen Höhlenerkundungen ein fesselndes RPG-Erlebnis. Die Beherrschung der Belohnungstabellen deiner Welt stellt sicher, dass jeder gefährliche Raum maßgeschneiderte Artefakte, ausgewogene Ausrüstung und passende Ressourcen bereithält. Egal, ob du einen Survival-Multiplayer-Server betreibst oder ein eigenes Modpack zusammenstellst: Durch die Feinabstimmung deiner **Beute für Dungeons** behältst du die volle Kontrolle über den Spielfortschritt und die Motivation deiner Spieler.
+
+Dungeon-Erkundungen verlieren schnell ihren Reiz, wenn sich Abenteurer im Endgame gefährlichen Spawnern stellen, nur um am Ende ein paar Fäden, verrottetes Fleisch und einen beschädigten Sattel vorzufinden. Indem du die prozeduralen Verteilungsmechaniken hinter der Behältergenerierung selbst in die Hand nimmst, kannst du enttäuschende Drops durch Gegenstände mit einzigartigen Lore-Texten, benutzerdefinierten Verzauberungen, veränderten Komponentenwerten und thematischen Attributen ersetzen. In dieser Anleitung erläutern wir die genauen Mechaniken, die erforderlich sind, um Dungeon-Belohnungen von Grund auf neu aufzubauen, und vergleichen leichtgewichtige Vanilla-Datenlösungen mit speziellen Mod-Frameworks.
+
+---
+
+## Die Mechaniken der Dungeon-Beutegenerierung in Minecraft
+
+Bevor du Behältertabellen bearbeitest, musst du verstehen, wie die Engine des Spiels entscheidet, welche Gegenstände in unterirdischen Kisten, Truhen und Fässern erscheinen. Wann immer ein Spieler einen noch unbesuchten Strukturenbehälter generiert oder öffnet, ruft die Engine eine bestimmte JSON-Datei ab, die als Beutetabelle (Loot Table) bezeichnet wird.
+
+Diese Dateien basieren auf klar voneinander abgegrenzten Bausteinen: „Pools“, „Rolls“, „Entries“ und „Functions“. Ein Pool bestimmt, wie viele Versuche das Spiel unternimmt, um einen Gegenstand auszuwählen – gesteuert durch die Rolls (Würfe). Innerhalb dieser Rolls definieren Entries die möglichen Gegenstände, die über Gewichte (Weights) gegeneinander abgewogen werden, um die Seltenheit zu steuern. Schließlich modifizieren Functions diese Basisgegenstände, indem sie benutzerdefinierte Namen, Lore-Inschriften, Verzauberungen oder spezielle Attributmodifikatoren wie zusätzliche Bewegungsgeschwindigkeit oder erhöhten Angriffsschaden zuweisen.
+
+| Beutetabellen-Komponente | Strukturelle Rolle | Praktisches Beispiel im Spiel |
+| :--- | :--- | :--- |
+| **Pool** | Organisiert gruppierte Gegenstandswürfe | Trennung seltener Waffen von gewöhnlichen Nahrungsvorräten |
+| **Rolls** | Bestimmt die Anzahl gezogener Gegenstände | 2 bis 5 Würfe pro geöffneter Truhe |
+| **Entries** | Beinhaltet die Ziel-Gegenstände | `minecraft:diamond_sword` oder `minecraft:enchanted_golden_apple` |
+| **Weight** | Legt die Auswahlwahrscheinlichkeit fest | Ein Gewicht von 5 erscheint deutlich seltener als ein Gewicht von 80 |
+| **Functions** | Modifiziert den ausgewählten Gegenstand | Zuweisen von Lore-Texten, Verzauberungen oder versteckten Flags |
+| **Conditions** | Beschränkt die Generierung von Belohnungen | High-End-Ausrüstung erscheint erst, wenn ein Dungeon-Boss besiegt wurde |
+
+Erfahrungsberichte aus der Community zeigen, dass leichtgewichtige, vanilla-freundliche Methoden – wie sie beispielsweise durch Mods wie Customized Dungeon Loot bekannt wurden – für eine hervorragende langfristige Stabilität sorgen. Indem du die Vanilla-Datenstruktur anpasst, ohne völlig neue Item-IDs zu registrieren, bleiben deine benutzerdefinierten Gegenstände in der Welt erhalten, selbst wenn du die Mod später entfernst oder neu konfigurierst. Dadurch werden gefürchtete „Missing Block/Item“-Fehler, die bestehende Welten beschädigen können, vollständig vermieden.
+
+---
+
+## Datenpakete vs. direkte Mod-Konfiguration: Den passenden Workflow wählen
+
+Abhängig von deiner Minecraft-Version, deinem Server-Setup und deinen technischen Kenntnissen stehen dir zwei Hauptmethoden zur Verfügung, um Drops anzupassen. Du kannst entweder ein eigenständiges Datenpaket (Datapack) erstellen oder Mod-Archive direkt modifizieren, um benutzerdefinierte Tabellen einzubinden.
+
+```
+📁 Root
+└── 📁 data
+    └── 📁 minecraft
+        └── 📁 loot_tables
+            └── 📁 chests
+                ├── simple_dungeon.json
+                └── abandoned_mineshaft.json
+```
+
+Ein Datenpaket wird im `datapacks`-Verzeichnis deiner Welt abgelegt und überschreibt globale Spieldaten auf native Weise. Das direkte Bearbeiten eines Mod-Archivs – etwa das Öffnen einer `.jar`-Datei – verankert deine Änderungen hingegen fest in jeder Welt, die dieses Mod-Profil nutzt.
+
+| Parameter | Datenpaket-Ansatz | Direktes Bearbeiten des Mod-Archivs (.jar) |
+| :--- | :--- | :--- |
+| **Kompatibilität** | Moderne Versionen (1.14 bis heute) | Universell; ältere (1.12) und moderne Strukturen |
+| **Interner Pfad** | `data/minecraft/loot_tables/...` | `assets/...` (1.12) oder `data/...` (1.14+) |
+| **Portabilität** | Lässt sich leicht mit einzelnen Spielständen übertragen | Betrifft alle Welten auf diesem Client oder Server |
+| **Wartungsrisiko** | Gering; beschädigt keine Spieldateien | Hoch; Launcher-Updates können veränderte `.jar`-Dateien überschreiben |
+| **Benötigte Werkzeuge** | Einfacher Texteditor & Archivierungsprogramm (Zip) | Archivierungssoftware (7-Zip, WinRAR) & Texteditor |
+
+Wenn du moderne Modloader verwendest, solltest du Plattformen wie die [CurseForge Minecraft Community](https://www.curseforge.com/minecraft) besuchen, um erforderliche Bibliotheken zu überprüfen. So setzen neuere Versionen beuteverändernder Mods auf aktuellen Spielbuilds oft Hilfs-Frameworks wie Magma Core voraus, um Hintergrundfunktionen, Event-Handling und automatische Update-Prüfungen durchzuführen.
+
+---
+
+## Schritt-für-Schritt: Die Beute für Dungeons von Grund auf neu aufbauen
+
+Das Einfügen benutzerdefinierter Ausrüstung erfordert höchste Präzision. Schon eine einzige falsch gesetzte Klammer oder ein fehlendes Komma in einer `.json`-Datei führt dazu, dass die Engine die Datei nicht lesen kann – die Folge sind komplett leere Truhen. Folge diesen Schritten, um ausgewogene und funktionierende Belohnungspools zu erstellen.
+
+### Schritt 1: Die Zieldateien der Struktur ausfindig machen
+Bestimme, welche Struktur du aufwerten möchtest. Minecraft unterteilt Truhenbelohnungen nach Archetypen – von `simple_dungeon` über `ancient_city` und `stronghold_corridor` bis hin zu `nether_bridge`.
+
+### Schritt 2: Behälterdaten öffnen und entpacken
+Extrahiere die vorhandene Vorlage aus der Mod-Datei oder kopiere eine saubere Vorlage aus den standardmäßigen Asset-Ordnern des Spiels. Wenn du ein Mod-Archiv direkt bearbeitest:
+* In Minecraft 1.12: Navigiere zu `assets\customizeddungeonloot\loot_tables`
+* In Minecraft 1.14 und neuer: Navigiere zu `data\minecraft\loot_tables`
+
+### Schritt 3: Gegenstandsgewichte und Modifikatoren definieren
+Richte verschiedene Ränge ein. Anstatt gewöhnliche Schwerter zu vergeben, nutze die Funktionen `set_components` oder `set_nbt`, um benutzerdefinierte Anzeigenamen, thematische Beschreibungen und Attributmodifikatoren zuzuweisen.
+
+### Schritt 4: Den Code validieren
+Bevor du die Datei auf deinen Server oder in dein Spiel überträgst, füge deinen JSON-Code in einen Online-Syntax-Validator ein. Dadurch stellst du sicher, dass keine fehlenden Anführungszeichen oder überflüssigen Kommas vorhanden sind, die beim Start der Welt den Parser zum Absturz bringen würden.
+
+| Einrichtungsphase | Hauptziel | Kritischer Fehler, den es zu vermeiden gilt |
+| :--- | :--- | :--- |
+| **1. Dateiextraktion** | Abrufen der grundlegenden Vanilla-Tabellen | Modifizieren von Spieldateien ohne vorheriges Backup |
+| **2. Array-Definition** | Festlegen von Pools und individuellen Würfen | Zu hohe Roll-Werte, wodurch der Behälter überfüllt wird |
+| **3. Funktionsgestaltung** | Einbinden von Lore, Farben und Verzauberungen | Tippfehler bei Verzauberungs-IDs, wodurch Anpassungen ignoriert werden |
+| **4. Tests im Spiel** | Überprüfen der Drop-Mechaniken via Befehle | Nur eine einzige Truhe statt über 20 öffnen, um die Balance zu prüfen |
+
+---
+
+## Spielfortschritt ausbalancieren: Stufensysteme für Drops entwickeln
+
+Wenn man unterirdische Dungeon-Begegnungen überarbeitet, ist die Versuchung groß, Truhen mit übermächtigen Gegenständen zu füllen. Tests aus der Community belegen jedoch: Erhalten Spieler schon früh im Spiel übermächtige Ausrüstung, verliert der Aufbau von Survival-Farmen, das Erkunden der Biome und das klassische Crafting-System schlagartig jeden Reiz.
+
+Die Unterteilung der Belohnungen in klar definierte Stufen sorgt für eine fesselnde Gameplay-Schleife. Seltene Gegenstände sollten sich schwer verdient anfühlen, während alltägliche Funde einen praktischen Nutzen für das Überleben bieten.
+
+| Belohnungsstufe | Angestrebte Droprate | Beispiel-Items & Mechaniken | Vorgesehene Erkundungsphase |
+| :--- | :--- | :--- | :--- |
+| **Stufe 1: Plünderer** | 60% – 70% | Bandagen (angepasste Nahrung), Eisennuggets, Fackeln, Pfeile | Frühes Spiel: Oberfläche und einfache Höhlen |
+| **Stufe 2: Entdecker** | 25% – 30% | Kettenschutzausrüstung (Schutz II), Effizienz-III-Werkzeuge, Eisenbarren | Mittlere Dungeons, verlassene Minenschächte |
+| **Stufe 3: Relikt** | 5% – 8% | Waffen mit Lore-Text, Rückstoß II, nicht herstellbare Tränke | Tiefen-Strukturen (Deep Dark), abgelegene Monsterräume |
+| **Stufe 4: Mythisch** | < 1% | Waffen mit Attribut-Boni (+15% Tempo), Netherit-Upgrades | End-Städte, Antike Städte, Prüfungskammern |
+
+Die Anpassung von Vanilla-Gegenständen anstelle von Mod-IDs hält deine Spielwelt flexibel. Die Erfahrung zeigt: Gegenstände, die über Komponenten und Lore-Texte modifiziert wurden, fügen sich nahtlos ins Spiel ein, schonen die Client-Performance und verhindern beschädigte Inventare, falls Drittanbieter-Mods zu einem späteren Zeitpunkt entfernt werden.
+
+---
+
+## Fortgeschrittene Anpassung: Arbeiten mit JSON-Daten
+
+Um dir den Einstieg zu erleichtern, findest du hier ein Beispiel für einen Eintrag, der ein gewöhnliches Eisenschwert in das Relikt eines Entdeckers verwandelt. Dieses Snippet verdeutlicht, wie Funktionen benutzerdefinierte Anzeigedaten, Verzauberungen und Lore-Texte zuweisen:
+
+```json
+{
+  "type": "minecraft:item",
+  "name": "minecraft:iron_sword",
+  "weight": 5,
+  "functions": [
+    {
+      "function": "minecraft:set_name",
+      "name": {
+        "text": "Forgotten Cryptcleaver",
+        "color": "gold",
+        "italic": false
+      }
+    },
+    {
+      "function": "minecraft:set_lore",
+      "lore": [
+        {
+          "text": "Forged in the depths, stained by ancient battles.",
+          "color": "dark_purple",
+          "italic": true
+        }
+      ]
+    },
+    {
+      "function": "minecraft:enchant_with_levels",
+      "levels": {
+        "min": 15,
+        "max": 25
+      },
+      "treasure": false
+    }
+  ]
+}
+```
+
+Dieses JSON-Beispiel zeigt, wie leicht du die **Beute für Dungeons so anpassen** kannst, dass sie lebendig wirkt. Durch die Anpassung von Gewichten, Funktionen und Namenskomponenten erhält gewöhnliche Ausrüstung eine eigene Identität und einen echten emotionalen Wert für den Spieler, der sie findet.
+
+---
+
+## Testen und Beheben häufiger Einrichtungsfehler
+
+Sobald deine Dateien konfiguriert sind, erstelle eine neue Testwelt, um die Generierung gründlich zu prüfen. Verlasse dich niemals auf eine einzelne Truhe, um deine Tabellen zu beurteilen. Generiere mehrere Instanzen deiner Zielstruktur mit Befehlen wie `/locate structure`, teleportiere dich zu den Koordinaten und analysiere die Verteilung der Gegenstände.
+
+| Symptom | Ursache | Bewährte Lösung |
+| :--- | :--- | :--- |
+| **Truhen sind komplett leer** | Syntaxfehler in der JSON-Datei | Datei durch einen JSON-Validator prüfen, um Fehler aufzuspüren |
+| **Item erscheint ohne Lore/Name** | Falsche Funktionssyntax oder inkompatibles Komponentenformat | Funktionsschlüssel an die Syntax deiner Spielversion anpassen |
+| **Gegenstände erscheinen zu oft** | Gewichtung im Vergleich zu anderen Einträgen zu hoch gewählt | Gewichtungen konkurrierender Items anheben oder Zielgewicht senken |
+| **Eigene Items verschwinden beim Neustart** | Spielversion nicht kompatibel mit den Item-Komponenten | Prüfen, ob die Spielversion exakt den NBT-/Komponenten-Anforderungen entspricht |
+
+Um deine Tests zu beschleunigen, platziere eine Truhe direkt vor deiner Spielfigur, blicke sie an und führe folgenden Befehl aus:
+
+`/loot replace block ~ ~ ~-1 container.0 loot minecraft:chests/simple_dungeon`
+
+Dieser Befehl führt den Beutegenerierungs-Algorithmus sofort aus und befüllt den anvisierten Behälter. So kannst du Gegenstände, Dropraten und Verzauberungen in Sekundenschnelle überprüfen, ohne lange nach Dungeons suchen zu müssen.
+
+---
+
+## Häufig gestellte Fragen (FAQ)
+
+### Was bedeutet es, die Beute für Dungeons anzupassen?
+Das Anpassen der **Beute für Dungeons** beschreibt das Modifizieren der zugrunde liegenden Beutetabellen (mithilfe von JSON-Dateien, Datenpaketen oder Mods), die den Inhalt von Truhen in Spielstrukturen steuern. Dadurch können Entwickler und Serverbetreiber schlichte Vanilla-Gegenstände durch thematisch passende Relikte, speziell verzauberte Waffen und balancierte Belohnungen ersetzen.
+
+### Verlieren Spieler ihre Gegenstände, wenn die Beute-Mod deinstalliert wird?
+Wenn dein Setup bestehende Vanilla-Gegenstände über Komponenten, Lore-Texte und Standardverzauberungen modifiziert (anstatt komplett neue Block- oder Item-IDs einzuführen), behalten die Spieler ihre gesamte Ausrüstung. Die Gegenstände existieren im Spielstand einfach als modifizierte Vanilla-Objekte weiter.
+
+### Was ist der sicherste Weg, um Beutetabellen in modernen Versionen zu bearbeiten?
+Der sauberste Ansatz ist die Erstellung eines eigenständigen Datenpakets im Ordner `world/datapacks`. Datenpakete überschreiben die gewünschten Belohnungstabellen, ohne die Kern-Installationsdateien des Spiels zu verändern. Sie lassen sich mühelos aktualisieren, sichern und zwischen verschiedenen Welten oder Servern übertragen.
+
+### Kann ich Dropraten für bestimmte Strukturen ändern, ohne andere zu beeinflussen?
+Ja. Jede Struktur im Spiel greift auf ihre eigene, separate Tabellendatei zu. Wenn du beispielsweise die Datei `simple_dungeon.json` anpasst, ändert dies ausschließlich die Spawner-Räume von Monstern. Minenkarren-Truhen, Wüstenpyramiden oder Waldanwesen bleiben davon völlig unberührt, es sei denn, du bearbeitest deren Dateien ebenfalls.

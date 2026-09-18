@@ -236,40 +236,26 @@ export interface NavGroup {
 }
 
 // 分组标题映射：slug → 人类可读标题（默认英文）
+// slug 集合必须与 src/config/navigation.ts 的 NAVIGATION_CONFIG 完全一致
 const GROUP_TITLES: Record<string, string> = {
-  bosses: "Bosses",
-  races: "Races",
-  maps: "Maps & Areas",
-  skills: "Skills",
+  guide: "Guide",
   codes: "Codes",
-  guide: "Getting Started",
-  "tier-list": "Tier Lists",
+  items: "Items",
+  mechanics: "Mechanics",
+  progression: "Progression",
+  rewards: "Rewards",
+  community: "Community",
 };
 
-// 日文分组标题映射
-const GROUP_TITLES_JA: Record<string, string> = {
-  bosses: "ボス",
-  races: "種族",
-  maps: "マップ & エリア",
-  skills: "スキル",
-  codes: "コード",
-  guide: "初心者ガイド",
-  "tier-list": "Tier List",
-};
+// locale → 分组标题映射（非英文语言暂未翻译，缺失时回退到 GROUP_TITLES）
+const GROUP_TITLES_BY_LOCALE: Record<string, Record<string, string>> = {};
 
-// locale → 分组标题映射
-const GROUP_TITLES_BY_LOCALE: Record<string, Record<string, string>> = {
-  ja: GROUP_TITLES_JA,
-};
+// locale → "Overview" 翻译（缺失时回退到英文 "Overview"）
+const OVERVIEW_LABEL_BY_LOCALE: Record<string, string> = {};
 
-// locale → "Overview" 翻译
-const OVERVIEW_LABEL_BY_LOCALE: Record<string, string> = {
-  ja: "一覧",
-};
-
-// 分组排序顺序
+// 分组排序顺序（与 NAVIGATION_CONFIG 的展示顺序保持一致）
 const GROUP_ORDER: string[] = [
-  "guide", "races", "bosses", "maps", "skills", "codes", "tier-list",
+  "guide", "codes", "items", "mechanics", "progression", "rewards", "community",
 ];
 
 /**
