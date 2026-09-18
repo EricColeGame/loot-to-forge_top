@@ -29,8 +29,10 @@ export const siteConfig: SiteConfig = {
   gameUrl: "https://www.roblox.com/games/118805555015549/1-Loot-To-Forge",
   heroVideoId: "lnDRkFWMWSo", // Roblox Loot to Forge gameplay showcase
   social: {
+    // No standalone official Loot to Forge Discord/YouTube channel is published yet;
+    // point at the verified Roblox official channels and label them accordingly.
     discord: "https://discord.gg/roblox",
-    youtube: "https://www.youtube.com/@roblox",
+    youtube: "https://www.youtube.com/@Roblox",
   },
   locales: ["en", "es", "pt", "de", "fr"],
   defaultLocale: "en",
