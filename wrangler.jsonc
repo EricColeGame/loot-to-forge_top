@@ -1,0 +1,14 @@
+{
+  "name": "loot-to-forge-top",
+  "compatibility_date": "2024-09-01",
+  "workers_dev": false,
+  "assets": {
+    "directory": "./out"
+  },
+  "routes": [
+    {
+      "pattern": "loot-to-forge.top",
+      "custom_domain": true
+    }
+  ]
+}
