@@ -38,27 +38,27 @@
     },
     "start": {
       "eyebrow": "Start Here",
-      "title": "Your My Seafood Stand Journey",
+      "title": "Your Loot to Forge Journey",
       "cards": [
         {
           "number": "1",
           "title": "Beginner Guide",
-          "description": "Master the Spirit World from day one with our comprehensive beginner guide covering controls, combat, and early progression."
+          "description": "Learn the core loop from your very first click: train Power, enter the dungeon, collect ores, and forge your first real sword."
         },
         {
           "number": "2",
-          "title": "Fastest Leveling",
-          "description": "Dominate early game and max your progression with the most efficient leveling routes and strategies."
+          "title": "Fastest Power Leveling",
+          "description": "Stack manual sword slashes with the auto-training area to push your Power stat high enough for the next dungeon floor."
         },
         {
           "number": "3",
-          "title": "Best Farming Spots",
-          "description": "Maximize your Soul Essence and EXP gains with optimal farming locations for every stage."
+          "title": "Best Loot Farming Spots",
+          "description": "Farm the deepest floors you can clear safely, and manage bag capacity so every run ends with a full haul of ore."
         },
         {
           "number": "4",
-          "title": "How to Extract",
-          "description": "Learn the best methods and locations for extracting resources in My Seafood Stand."
+          "title": "How to Forge Stronger Swords",
+          "description": "Choose between Katana and Greatsword, match the materials you farm, and unlock the skill that fits your forge build."
         }
       ]
     },
@@ -129,15 +129,15 @@
       ]
     },
     "aboutGame": {
-      "title": "What is My Seafood Stand?",
+      "title": "What is Loot to Forge?",
       "paragraphs": [
-        "My Seafood Stand is a stylized fighting RPG on Roblox inspired by the Bleach anime universe. Choose from three playable races Shinigami, Quincy, or Hollow each with unique progression systems, unlockable abilities, and evolution paths. Master over 130 skills as you fight your way to the level 100 cap.",
-        "Whether you're unlocking your first Shikai, evolving from a base Hollow into an Arrancar, or grinding Quincy Lieutenant missions, our wiki covers every system with detailed guides, data tables, and step-by-step walkthroughs."
+        "Loot to Forge is a Roblox incremental dungeon crawler from Good Bro Studio. You click and train to raise your Power stat, march into a linear dungeon to defeat hordes of enemies, and carry back the ores and loot they drop. Every ore feeds the forge, and every sword you craft lets you push one floor deeper.",
+        "Progression follows a tight loop: gather loot, forge stronger gear, then clear the floors that were out of reach a run ago. Upgrades raise your bag capacity and combat stats, enchantments and weapon skills sharpen your build, and Rebirth trades your Power stat for permanent Power gain and Coin multipliers once you reach the required threshold."
       ],
       "stats": [
         {
           "label": "Developer",
-          "value": "Midnight Continent"
+          "value": "Good Bro Studio"
         },
         {
           "label": "Platform",
@@ -145,158 +145,270 @@
         },
         {
           "label": "Genre",
-          "value": "Fighting RPG"
+          "value": "Incremental Dungeon Crawler"
         },
         {
-          "label": "Visits",
-          "value": "12.6M+"
+          "label": "Core Loop",
+          "value": "Loot, Forge, Go Deeper"
         },
         {
-          "label": "Favorites",
-          "value": "243K+"
+          "label": "Weapon Types",
+          "value": "Katana & Greatsword"
         },
         {
-          "label": "Total Skills",
-          "value": "130+"
+          "label": "Key Systems",
+          "value": "Rebirth & Enchantments"
         },
         {
-          "label": "Level Cap",
-          "value": "100"
+          "label": "Main Currency",
+          "value": "Coins"
         }
       ],
       "cta": "Explore All Guides"
     },
     "explore": {
       "title": "Explore Loot to Forge Wiki",
-      "description": "Master your seafood restaurant on Roblox with essential progression guides, active codes, complete fish & recipe catalogs, and optimal upgrade strategies.",
+      "description": "Master the Loot to Forge progression loop with code tracking, beginner walkthroughs, forging and upgrade guides, tier lists, and dungeon farming routes.",
       "modules": [
         {
           "order": 1,
-          "name": "My Seafood Stand Working Codes",
-          "description": "Redeem the latest working codes to claim free coins, gems, exclusive cosmetics, and boost items before they expire.",
-          "href": "/codes/my-seafood-stand-codes",
-          "displayType": "code-box",
+          "name": "Loot To Forge Codes",
+          "description": "Track the status of redeemable codes for Loot to Forge, plus the in-game reward systems that hand out free Coins and ores while no codes are live.",
+          "href": "/codes/loot-to-forge-codes",
+          "displayType": "code-cards",
           "highlights": [
             {
-              "label": "Code",
-              "detail": "FULLRELEASE — Free Cash & Rewards"
+              "label": "No Codes Yet",
+              "detail": "Good Bro Studio has not shipped a code redemption box in Loot to Forge",
+              "badge": "Verified"
             },
             {
-              "label": "Code",
-              "detail": "75KLIKES — Exclusive Ability Reroll"
+              "label": "Daily Login",
+              "detail": "Claim free Coins and materials every 24 hours from the lobby"
             },
             {
-              "label": "Tip",
-              "detail": "Codes are case-sensitive; enter them in the Settings menu"
+              "label": "Playtime Gifts",
+              "detail": "Timed reward chests scale with session length while you idle"
+            },
+            {
+              "label": "Tower Tickets",
+              "detail": "One free ticket a day unlocks Frostbound Tower ore runs"
             }
           ]
         },
         {
           "order": 2,
-          "name": "Beginner Guide: How to Start & Serve Customers",
-          "description": "Step-by-step beginner guide covering customer ordering, food prep, station management, and cashier checkout mechanics.",
-          "href": "/guide/my-seafood-stand-beginner-guide",
-          "displayType": "feature-cards",
+          "name": "Loot To Forge Beginner Guide",
+          "description": "A full first-session walkthrough of the Loot to Forge loop: building Power, surviving the dungeon, banking ore, and forging the sword that takes you deeper.",
+          "href": "/guide/loot-to-forge-beginner-guide",
+          "displayType": "step-by-step",
           "highlights": [
             {
-              "label": "Step 1",
-              "detail": "Take customer order at the stall front"
+              "label": "1",
+              "detail": "Train Power with left-click sword slashes, or park in the auto-training area"
             },
             {
-              "label": "Step 2",
-              "detail": "Cook seafood on the grill or boil station"
+              "label": "2",
+              "detail": "Enter the linear dungeon and let auto-attacks handle the mobs while you position"
             },
             {
-              "label": "Step 3",
-              "detail": "Serve warm food promptly for maximum customer tips"
+              "label": "3",
+              "detail": "Pick up ore and loot drops until your bag capacity is full"
+            },
+            {
+              "label": "4",
+              "detail": "Return to the hub and sell surplus loot to earn Coins"
+            },
+            {
+              "label": "5",
+              "detail": "Spend Coins at the Upgrades station on carry capacity and combat stats"
+            },
+            {
+              "label": "6",
+              "detail": "Forge a stronger Katana or Greatsword, then push the next dungeon level"
             }
           ]
         },
         {
           "order": 3,
-          "name": "Seafood & Fish Tier List",
-          "description": "Complete breakdown of all catchable fish and seafood ranked by market value, customer demand, and profit margins.",
-          "href": "/seafood/my-seafood-stand-tier-list",
-          "displayType": "tier-grid",
+          "name": "Loot To Forge Forge Guide",
+          "description": "How the Loot to Forge anvil works: the ores worth farming, the two weapon types, and how forge materials decide which skill your blade rolls.",
+          "href": "/mechanics/loot-to-forge-forging",
+          "displayType": "card-list",
           "highlights": [
             {
-              "label": "S Tier",
-              "detail": "King Crab · Lobster Boil — Highest profit per customer"
+              "label": "Ores",
+              "detail": "Ore gathered in the dungeon is the raw material for every sword"
             },
             {
-              "label": "A Tier",
-              "detail": "Salmon · Jumbo Shrimp · Tuna Steak — Reliable fast earners"
+              "label": "Katana",
+              "detail": "Fast weapon type with its own set of skills"
             },
             {
-              "label": "B Tier",
-              "detail": "Clams · Oysters · Squid — Great mid-game margin"
+              "label": "Greatsword",
+              "detail": "Heavy weapon type built around raw damage"
             },
             {
-              "label": "C Tier",
-              "detail": "Common Sardines · Small Crab — Starter seafood"
+              "label": "Skills",
+              "detail": "Fired with Q; the skill depends on weapon type and forge materials"
+            },
+            {
+              "label": "Enchant",
+              "detail": "Enchantments layer extra stats onto forged gear"
+            },
+            {
+              "label": "Upgrade",
+              "detail": "Raise gear stats at the forge to keep pace with deeper floors"
             }
           ]
         },
         {
           "order": 4,
-          "name": "Best Upgrades Progression",
-          "description": "Optimal order to spend your cash: expand kitchen stations, hire waitstaff, speed up grills, and upgrade seating.",
-          "href": "/upgrades/my-seafood-stand-best-upgrades",
-          "displayType": "feature-cards",
+          "name": "Loot To Forge Tier List",
+          "description": "Ranked Loot to Forge activities and gear by how much Power and loot they return per hour, so you know where to spend your next session.",
+          "href": "/items/loot-to-forge-best-items",
+          "displayType": "tier-grid",
           "highlights": [
             {
-              "label": "Priority 1",
-              "detail": "Cooking Speed & Extra Burners — Clears customer backlog"
+              "label": "S",
+              "detail": "Ore runs on the deepest floor you can clear, for the best loot per minute"
             },
             {
-              "label": "Priority 2",
-              "detail": "Customer Seating Capacity — Increases simultaneous diners"
+              "label": "A",
+              "detail": "Auto-training while you bank loot, for steady Power with no input"
             },
             {
-              "label": "Priority 3",
-              "detail": "Auto-Chef / Waiter Staff — Passive hands-free revenue"
+              "label": "B",
+              "detail": "Early dungeon floors, for safe ore farming toward a fresh sword"
+            },
+            {
+              "label": "C",
+              "detail": "Manual slashing in the hub, only worth it before auto-training"
             }
           ]
         },
         {
           "order": 5,
-          "name": "How to Get Cash Fast",
-          "description": "Top money-making strategies, VIP evaluation, tip maximization, and high-efficiency serving tips.",
-          "href": "/guide/my-seafood-stand-how-to-get-cash-fast",
-          "displayType": "feature-cards",
+          "name": "Loot To Forge Rebirth Guide",
+          "description": "When to Rebirth in Loot to Forge, what the reset costs you, and how the permanent multipliers compound across every run that follows.",
+          "href": "/progression/loot-to-forge-rebirth",
+          "displayType": "step-by-step",
           "highlights": [
             {
-              "label": "Combo",
-              "detail": "Chain orders quickly to build the Customer Happiness multiplier"
+              "label": "1",
+              "detail": "Keep training Power until the Rebirth meter on the left reads 100%"
             },
             {
-              "label": "High Margin",
-              "detail": "Focus high-tier seafood boils during peak customer rush hours"
+              "label": "2",
+              "detail": "Rebirth the moment it unlocks; training past the threshold wastes Power"
             },
             {
-              "label": "Reinvest",
-              "detail": "Keep 20% cash reserve for fresh ingredient replenishment"
+              "label": "3",
+              "detail": "Your Power stat resets to zero, but the permanent bonuses stay"
+            },
+            {
+              "label": "4",
+              "detail": "Rebuild Power with the boosted gain rate; good gear gets you back in a minute or two"
+            },
+            {
+              "label": "5",
+              "detail": "Train on the better dummies that the Rebirth unlocks"
+            },
+            {
+              "label": "6",
+              "detail": "Repeat at every threshold to stack Power gain and Coin earning bonuses"
             }
           ]
         },
         {
           "order": 6,
-          "name": "Plot Expansion & Stand Customization",
-          "description": "Unlock bigger land plots, arrange optimal cooking layouts, and add high-value decorative upgrades.",
-          "href": "/upgrades/my-seafood-stand-how-to-upgrade-plot",
-          "displayType": "feature-cards",
+          "name": "Loot To Forge Dungeon Guide",
+          "description": "How to read the Loot to Forge dungeon: how floors scale, what enemies drop, and when to retreat instead of losing a full bag of ore.",
+          "href": "/mechanics/loot-to-forge-dungeons",
+          "displayType": "card-list",
           "highlights": [
             {
-              "label": "Plot 1",
-              "detail": "Starter Beach Stand (3 Tables, 1 Grill)"
+              "label": "Floors",
+              "detail": "The dungeon is a linear hallway, and each level holds stronger enemies"
             },
             {
-              "label": "Plot 2",
-              "detail": "Boardwalk Restaurant (6 Tables, 2 Grills, Boil Station)"
+              "label": "Drops",
+              "detail": "Ore and loot quality climbs with how deep you push"
             },
             {
-              "label": "Plot 3",
-              "detail": "Luxury Pier Seafood Pavilion (Full Automation & VIP Seating)"
+              "label": "Bag",
+              "detail": "Carry capacity is limited, so bank your haul at the hub before it fills"
+            },
+            {
+              "label": "Retreat",
+              "detail": "If a mob survives more than four hits, retreat and train first"
+            },
+            {
+              "label": "Auto-Swing",
+              "detail": "Your avatar attacks on its own in the dungeon, so you handle positioning and skills"
+            },
+            {
+              "label": "Death",
+              "detail": "Dying deep in the dungeon costs you the loot you are carrying"
+            }
+          ]
+        },
+        {
+          "order": 7,
+          "name": "Loot To Forge Update Guide",
+          "description": "Patch tracking for Loot to Forge: which build is live, what changed in the latest update, and where the studio posts announcements.",
+          "href": "/community/loot-to-forge-update",
+          "displayType": "code-cards",
+          "highlights": [
+            {
+              "label": "UPD 2",
+              "detail": "Current live build of Loot to Forge on Roblox",
+              "badge": "Live"
+            },
+            {
+              "label": "Patch Notes",
+              "detail": "Balance passes, new floors, and forge changes arrive with each milestone update"
+            },
+            {
+              "label": "Announcements",
+              "detail": "The official Good Bro Studio Roblox group is where updates land first"
+            },
+            {
+              "label": "No Codes",
+              "detail": "No update so far has added a code redemption system"
+            }
+          ]
+        },
+        {
+          "order": 8,
+          "name": "Loot To Forge Progression Tips",
+          "description": "Practical Loot to Forge tips for faster growth: bag management, upgrade order, Rebirth timing, and the mistakes that stall new players.",
+          "href": "/guide/loot-to-forge-pro-tips",
+          "displayType": "card-list",
+          "highlights": [
+            {
+              "label": "Capacity",
+              "detail": "Buy bag upgrades early; longer runs mean more ore per trip"
+            },
+            {
+              "label": "Sell Smart",
+              "detail": "Sell surplus loot for Coins instead of hoarding items you will not forge"
+            },
+            {
+              "label": "Four Hits",
+              "detail": "If mobs die in four hits or fewer, the floor is still safe to farm"
+            },
+            {
+              "label": "Rebirth",
+              "detail": "Rebirth as soon as the meter fills to avoid wasted Power"
+            },
+            {
+              "label": "Auto-Train",
+              "detail": "Leave the auto-training area running while you sort inventory"
+            },
+            {
+              "label": "Skill Test",
+              "detail": "Test Katana and Greatsword skills before committing materials to a build"
             }
           ]
         }
@@ -304,27 +416,27 @@
     },
     "faq": {
       "title": "Frequently Asked Questions",
-      "description": "Quick answers to the most common questions about My Seafood Stand.",
+      "description": "Quick answers to the most common questions about Loot to Forge.",
       "items": [
         {
-          "question": "What is My Seafood Stand?",
-          "answer": "My Seafood Stand is a free-to-play fighting RPG on Roblox based on the Bleach anime. You choose one of game mechanics Shinigami (Soul Reaper), Quincy, or Hollow each with unique progression, combat abilities, and evolution systems. The game features 130+ skills, a level 100 cap, boss fights, and deep build customization."
+          "question": "What is Loot to Forge?",
+          "answer": "Loot to Forge is a Roblox incremental dungeon crawler from Good Bro Studio. You click and train to build up your Power stat, fight through a linear dungeon, collect the ores and loot that enemies drop, and forge stronger swords so you can clear even deeper floors."
         },
         {
-          "question": "Which race should beginners pick?",
-          "answer": "Shinigami is the most straightforward starter race, while Hollow and Quincy offer more specialized progression routes. Compare their abilities before committing."
+          "question": "How do I gain Power fast in Loot to Forge?",
+          "answer": "Two systems feed your Power stat in Loot to Forge: manual sword slashes with the left mouse button, and the auto-training area that keeps generating Power while you do something else. Leave auto-training running whenever you are banking loot or sorting inventory, and save manual clicking for pushing past a dungeon wall."
         },
         {
-          "question": "What is the current level cap?",
-          "answer": "The current level cap is 100, with more than 130 skills available across trees and race progression systems."
+          "question": "Does Loot to Forge have working codes?",
+          "answer": "Not yet. Loot to Forge has no code redemption box, so no codes are live right now. Free rewards still exist: a daily login bonus, playtime gift chests that scale with session length, and one free Tower Ticket each day. This wiki tracks codes the moment Good Bro Studio adds them."
         },
         {
-          "question": "Where do I find active codes?",
-          "answer": "Use the Codes page for working codes, rewards, expiration notes, and redeem instructions."
+          "question": "When should I Rebirth in Loot to Forge?",
+          "answer": "Rebirth in Loot to Forge the moment the option unlocks. A Rebirth resets your Power stat to zero but grants permanent Power gain and Coin earning multipliers plus better training dummies, so delaying only wastes Power you have already trained past the threshold."
         },
         {
-          "question": "Are boss guides updated?",
-          "answer": "Boss pages are organized with spawn notes, attack patterns, strategies, drop tables, and related next steps for progression."
+          "question": "How deep should I push in the Loot to Forge dungeon?",
+          "answer": "Push until enemies stop dying in four hits or fewer. That is the signal in Loot to Forge that the next floor outpaces your sword, so retreat, bank your ore, and spend the haul on training or a better forge before you risk dying and losing a full bag."
         }
       ]
     },
