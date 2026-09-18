@@ -440,7 +440,48 @@
     "readMore": "Read more",
     "officialMedia": "Official media",
     "home": "Home",
-    "noGuidesAvailable": "No guides available yet. Check back soon!"
+    "noGuidesAvailable": "No guides available yet. Check back soon!",
+    "noActiveCodes": "No active codes currently available",
+    "checkBackSoon": "Check back soon for new codes",
+    "notFoundTitle": "Page not found",
+    "notFoundDescription": "The guide you are looking for may have moved or has not been added yet.",
+    "browseGuides": "Browse Guides"
+  },
+  "legal": {
+    "about": {
+      "title": "About",
+      "metaTitle": "About Loot to Forge Wiki",
+      "metaDescription": "Learn who runs the Loot to Forge Wiki, what it covers, and how to get in touch with corrections or questions.",
+      "p1": "{name} is an independent fan-built guide hub covering the Loot to Forge gameplay loop: collecting loot, forging and upgrading gear, clearing dungeons, and progressing through rebirth.",
+      "p2": "Our goal is to keep codes, item and weapon lists, forging recipes, and beginner walkthroughs in one place for new and veteran players alike.",
+      "contact": "We are not affiliated with the developers of Loot to Forge or with Roblox Corporation. Questions or corrections can be sent to <link>{email}</link>."
+    },
+    "copyright": {
+      "title": "Copyright",
+      "metaTitle": "Copyright | Loot to Forge Wiki",
+      "metaDescription": "Copyright and ownership notice for the Loot to Forge Wiki, an unofficial fan-made guide site.",
+      "p1": "Loot to Forge, Roblox, in-game artwork, logos, and related media belong to their respective owners.",
+      "p2": "{name} is a non-official fan wiki built for guide and reference purposes. We claim no ownership over the game or its assets.",
+      "contact": "If you own rights to content displayed here and have a concern, please contact <link>{email}</link> and we will review it."
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "metaTitle": "Privacy Policy | Loot to Forge Wiki",
+      "metaDescription": "How the Loot to Forge Wiki handles analytics, advertising, and external links, and what data we never ask for.",
+      "p1": "This fan wiki provides informational game guides for Loot to Forge. We do not request account credentials, Roblox passwords, or private payment information.",
+      "p2": "Basic analytics, advertising, and hosting providers may process standard technical information such as device type, browser, approximate region, and visited pages.",
+      "p3": "External links may lead to Roblox, Discord, YouTube, or community tools. Those services are governed by their own privacy policies.",
+      "contact": "Questions about this policy can be sent to <link>{email}</link>."
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "metaTitle": "Terms of Service | Loot to Forge Wiki",
+      "metaDescription": "The terms that apply when you use the Loot to Forge Wiki, an independent fan-made guide site.",
+      "p1": "This site is an independent fan-made guide hub for Loot to Forge. Content is provided for informational and entertainment purposes only.",
+      "p2": "Game systems, codes, drops, and update details may change without notice. Always verify important information in-game or through official channels.",
+      "p3": "By using this site, you agree not to misuse it, attempt unauthorized access, or present this fan wiki as an official Loot to Forge or Roblox property.",
+      "contact": "Questions about these terms can be sent to <link>{email}</link>."
+    }
   },
   "footer": {
     "aboutTitle": "Loot to Forge Wiki",

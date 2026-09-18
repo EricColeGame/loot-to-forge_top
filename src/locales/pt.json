@@ -1,1 +1,504 @@
-{}
+{
+  "site": {
+    "name": "Loot to Forge Wiki",
+    "shortName": "Loot to Forge",
+    "tagline": "Códigos, guias de forja, itens e dicas de progressão",
+    "description": "Loot to Forge é uma aventura de criação da Roblox focada em coletar loot, forjar equipamentos poderosos e melhorar armas. Esta wiki de fãs cobre códigos ativos, guias de forja e criação, listas de itens, renascimento e estratégias de progressão.",
+    "legalNotice": "Wiki de fãs não oficial. Feita por jogadores, para jogadores."
+  },
+  "nav": {
+    "guide": "Guias",
+    "codes": "Códigos",
+    "items": "Itens",
+    "mechanics": "Mecânicas",
+    "progression": "Progressão",
+    "rewards": "Recompensas",
+    "community": "Comunidade"
+  },
+  "home": {
+    "meta": {
+      "title": "Wiki de Loot to Forge - Códigos, itens e guias",
+      "description": "A wiki de Loot to Forge reúne códigos atualizados, guias de itens, dicas de forja, informações de melhorias e estratégias para iniciantes que ajudam você a coletar loot e montar equipamentos poderosos."
+    },
+    "hero": {
+      "eyebrow": "Jogo de aventura e forja baseado em loot",
+      "title": "Wiki de Loot to Forge",
+      "description": "Loot to Forge é um jogo de aventura e criação focado em coletar loot, forjar equipamentos poderosos, melhorar armas e avançar por ciclos de gameplay recompensadores.",
+      "stats": [
+        "Códigos e recompensas",
+        "Itens e armas",
+        "Forja e melhorias",
+        "Progressão e renascimento"
+      ],
+      "primaryCta": "Guia para iniciantes",
+      "secondaryCta": "Jogar na Roblox",
+      "tertiaryCta": "Códigos ativos",
+      "videoLabel": "Vídeo de gameplay"
+    },
+    "updates": {
+      "title": "Últimas atualizações",
+      "browse": "Ver todos os guias",
+      "viewAll": "Ver tudo"
+    },
+    "start": {
+      "eyebrow": "Comece aqui",
+      "title": "Sua jornada em Loot to Forge",
+      "cards": [
+        {
+          "number": "1",
+          "title": "Guia para iniciantes",
+          "description": "Aprenda o ciclo principal desde o seu primeiro clique: treine Poder, entre na masmorra, colete minérios e forje sua primeira espada de verdade."
+        },
+        {
+          "number": "2",
+          "title": "Subida de Poder mais rápida",
+          "description": "Combine os golpes manuais de espada com a área de treino automático para levar seu Poder alto o suficiente para o próximo andar da masmorra."
+        },
+        {
+          "number": "3",
+          "title": "Melhores locais de farm de loot",
+          "description": "Faça farm nos andares mais profundos que você consegue limpar com segurança e controle a capacidade da mochila para terminar cada run com um bom carregamento de minério."
+        },
+        {
+          "number": "4",
+          "title": "Como forjar espadas mais fortes",
+          "description": "Escolha entre Katana e Greatsword, use os materiais que você farma e desbloqueie a habilidade que combina com sua build de forja."
+        }
+      ]
+    },
+    "popular": {
+      "eyebrow": "Páginas populares",
+      "title": "Em alta agora",
+      "quickLinks": [
+        "Forja e criação",
+        "Subida de nível mais rápida",
+        "Espada mais forte",
+        "Rotas de masmorra"
+      ]
+    },
+    "aboutGame": {
+      "title": "O que é Loot to Forge?",
+      "paragraphs": [
+        "Loot to Forge é um dungeon crawler incremental da Roblox criado pela Good Bro Studio. Você clica e treina para subir seu atributo de Poder, avança por uma masmorra linear para derrotar hordas de inimigos e traz de volta os minérios e o loot que eles deixam cair. Cada minério alimenta a forja, e cada espada que você cria permite descer um andar a mais.",
+        "A progressão segue um ciclo fechado: junte loot, forje equipamentos mais fortes e depois limpe os andares que antes eram inalcançáveis. As melhorias aumentam a capacidade da mochila e os atributos de combate, os encantamentos e as habilidades de arma refinam sua build, e o Renascimento troca seu atributo de Poder por multiplicadores permanentes de Poder e de Moedas assim que você alcança o limite necessário."
+      ],
+      "stats": [
+        {
+          "label": "Desenvolvedora",
+          "value": "Good Bro Studio"
+        },
+        {
+          "label": "Plataforma",
+          "value": "Roblox"
+        },
+        {
+          "label": "Gênero",
+          "value": "Dungeon crawler incremental"
+        },
+        {
+          "label": "Ciclo principal",
+          "value": "Loot, forja, desça mais"
+        },
+        {
+          "label": "Tipos de arma",
+          "value": "Katana e Greatsword"
+        },
+        {
+          "label": "Sistemas principais",
+          "value": "Renascimento e encantamentos"
+        },
+        {
+          "label": "Moeda principal",
+          "value": "Moedas"
+        }
+      ],
+      "cta": "Explorar todos os guias"
+    },
+    "explore": {
+      "title": "Explore a wiki de Loot to Forge",
+      "description": "Domine o ciclo de progressão de Loot to Forge com acompanhamento de códigos, guias para iniciantes, guias de forja e melhorias, tier lists e rotas de farm na masmorra.",
+      "modules": [
+        {
+          "order": 1,
+          "name": "Códigos de Loot to Forge",
+          "description": "Acompanhe o status dos códigos resgatáveis de Loot to Forge e os sistemas de recompensa do jogo que distribuem Moedas e minérios de graça enquanto não há códigos ativos.",
+          "href": "/codes/loot-to-forge-codes",
+          "displayType": "code-cards",
+          "highlights": [
+            {
+              "label": "Ainda sem códigos",
+              "detail": "A Good Bro Studio não lançou nenhuma caixa de resgate de códigos em Loot to Forge",
+              "badge": "Verificado"
+            },
+            {
+              "label": "Login diário",
+              "detail": "Resgate Moedas e materiais de graça a cada 24 horas no lobby"
+            },
+            {
+              "label": "Presentes por tempo de jogo",
+              "detail": "Baús de recompensa escalam com a duração da sessão enquanto você fica idle"
+            },
+            {
+              "label": "Tickets de torre",
+              "detail": "Um ticket grátis por dia libera runs de minério na Frostbound Tower"
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "name": "Guia para iniciantes de Loot to Forge",
+          "description": "Um passo a passo completo da sua primeira sessão no ciclo de Loot to Forge: subir Poder, sobreviver à masmorra, guardar minério e forjar a espada que leva você mais fundo.",
+          "href": "/guide/loot-to-forge-beginner-guide",
+          "displayType": "step-by-step",
+          "highlights": [
+            {
+              "label": "1",
+              "detail": "Treine Poder com golpes de espada no clique esquerdo, ou fique na área de treino automático"
+            },
+            {
+              "label": "2",
+              "detail": "Entre na masmorra linear e deixe os ataques automáticos cuidarem dos inimigos enquanto você se posiciona"
+            },
+            {
+              "label": "3",
+              "detail": "Pegue o minério e o loot que caem até encher a capacidade da sua mochila"
+            },
+            {
+              "label": "4",
+              "detail": "Volte ao hub e venda o loot excedente para ganhar Moedas"
+            },
+            {
+              "label": "5",
+              "detail": "Gaste Moedas na estação de melhorias em capacidade de carga e atributos de combate"
+            },
+            {
+              "label": "6",
+              "detail": "Forje uma Katana ou uma Greatsword mais forte e avance para o próximo nível da masmorra"
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "name": "Guia de forja de Loot to Forge",
+          "description": "Como funciona a bigorna de Loot to Forge: os minérios que valem o farm, os dois tipos de arma e como os materiais de forja decidem qual habilidade sua lâmina recebe.",
+          "href": "/mechanics/loot-to-forge-forging",
+          "displayType": "card-list",
+          "highlights": [
+            {
+              "label": "Minérios",
+              "detail": "O minério coletado na masmorra é a matéria-prima de todas as espadas"
+            },
+            {
+              "label": "Katana",
+              "detail": "Tipo de arma rápida com seu próprio conjunto de habilidades"
+            },
+            {
+              "label": "Greatsword",
+              "detail": "Tipo de arma pesada baseada em dano bruto"
+            },
+            {
+              "label": "Habilidades",
+              "detail": "Disparadas com Q; a habilidade depende do tipo de arma e dos materiais de forja"
+            },
+            {
+              "label": "Encantar",
+              "detail": "Os encantamentos adicionam atributos extras ao equipamento forjado"
+            },
+            {
+              "label": "Melhoria",
+              "detail": "Aumente os atributos do equipamento na forja para acompanhar os andares mais profundos"
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "name": "Tier list de Loot to Forge",
+          "description": "Atividades e equipamentos de Loot to Forge classificados pelo Poder e pelo loot que rendem por hora, para você saber onde investir sua próxima sessão.",
+          "href": "/items/loot-to-forge-best-items",
+          "displayType": "tier-grid",
+          "highlights": [
+            {
+              "label": "S",
+              "detail": "Runs de minério no andar mais profundo que você consegue limpar, para o melhor loot por minuto"
+            },
+            {
+              "label": "A",
+              "detail": "Treino automático enquanto você guarda loot, para um Poder constante sem esforço"
+            },
+            {
+              "label": "B",
+              "detail": "Andares iniciais da masmorra, para farmar minério com segurança até conseguir uma espada nova"
+            },
+            {
+              "label": "C",
+              "detail": "Golpes manuais no hub, só vale a pena antes do treino automático"
+            }
+          ]
+        },
+        {
+          "order": 5,
+          "name": "Guia de renascimento de Loot to Forge",
+          "description": "Quando renascer em Loot to Forge, o que o reset custa e como os multiplicadores permanentes se acumulam em cada run seguinte.",
+          "href": "/progression/loot-to-forge-rebirth",
+          "displayType": "step-by-step",
+          "highlights": [
+            {
+              "label": "1",
+              "detail": "Continue treinando Poder até o medidor de Renascimento à esquerda marcar 100%"
+            },
+            {
+              "label": "2",
+              "detail": "Renasça no momento em que desbloquear; treinar além do limite desperdiça Poder"
+            },
+            {
+              "label": "3",
+              "detail": "Seu atributo de Poder volta a zero, mas os bônus permanentes continuam"
+            },
+            {
+              "label": "4",
+              "detail": "Reconstrua o Poder com a taxa de ganho melhorada; com um bom equipamento você volta em um ou dois minutos"
+            },
+            {
+              "label": "5",
+              "detail": "Treine nos bonecos melhores que o Renascimento desbloqueia"
+            },
+            {
+              "label": "6",
+              "detail": "Repita em cada limite para acumular bônus de ganho de Poder e de obtenção de Moedas"
+            }
+          ]
+        },
+        {
+          "order": 6,
+          "name": "Guia de masmorras de Loot to Forge",
+          "description": "Como ler a masmorra de Loot to Forge: como os andares escalam, o que os inimigos deixam cair e quando recuar em vez de perder uma mochila cheia de minério.",
+          "href": "/mechanics/loot-to-forge-dungeons",
+          "displayType": "card-list",
+          "highlights": [
+            {
+              "label": "Andares",
+              "detail": "A masmorra é um corredor linear e cada nível tem inimigos mais fortes"
+            },
+            {
+              "label": "Drops",
+              "detail": "A qualidade do minério e do loot sobe conforme você avança mais fundo"
+            },
+            {
+              "label": "Mochila",
+              "detail": "A capacidade de carga é limitada, então guarde seu carregamento no hub antes de enchê-la"
+            },
+            {
+              "label": "Recuar",
+              "detail": "Se um inimigo aguentar mais de quatro golpes, recue e treine primeiro"
+            },
+            {
+              "label": "Ataque automático",
+              "detail": "Seu avatar ataca sozinho dentro da masmorra, então você cuida do posicionamento e das habilidades"
+            },
+            {
+              "label": "Morte",
+              "detail": "Morrer no fundo da masmorra custa o loot que você está carregando"
+            }
+          ]
+        },
+        {
+          "order": 7,
+          "name": "Guia de atualizações de Loot to Forge",
+          "description": "Acompanhamento de patches de Loot to Forge: qual versão está ativa, o que mudou na última atualização e onde o estúdio publica os anúncios.",
+          "href": "/community/loot-to-forge-update",
+          "displayType": "code-cards",
+          "highlights": [
+            {
+              "label": "UPD 2",
+              "detail": "Versão ativa atual de Loot to Forge na Roblox",
+              "badge": "Ativa"
+            },
+            {
+              "label": "Notas do patch",
+              "detail": "Ajustes de balanceamento, andares novos e mudanças na forja chegam a cada atualização importante"
+            },
+            {
+              "label": "Anúncios",
+              "detail": "O grupo oficial da Good Bro Studio na Roblox é onde as novidades aparecem primeiro"
+            },
+            {
+              "label": "Sem códigos",
+              "detail": "Nenhuma atualização até agora adicionou um sistema de resgate de códigos"
+            }
+          ]
+        },
+        {
+          "order": 8,
+          "name": "Dicas de progressão de Loot to Forge",
+          "description": "Dicas práticas de Loot to Forge para crescer mais rápido: gestão da mochila, ordem das melhorias, momento do Renascimento e os erros que travam jogadores novos.",
+          "href": "/guide/loot-to-forge-pro-tips",
+          "displayType": "card-list",
+          "highlights": [
+            {
+              "label": "Capacidade",
+              "detail": "Compre melhorias de mochila cedo; runs mais longas rendem mais minério por viagem"
+            },
+            {
+              "label": "Venda bem",
+              "detail": "Venda o loot excedente por Moedas em vez de acumular itens que você não vai forjar"
+            },
+            {
+              "label": "Quatro golpes",
+              "detail": "Se os inimigos morrem em quatro golpes ou menos, o andar ainda é seguro para farmar"
+            },
+            {
+              "label": "Renascimento",
+              "detail": "Renasça assim que o medidor encher para evitar desperdício de Poder"
+            },
+            {
+              "label": "Treino automático",
+              "detail": "Deixe a área de treino automático rodando enquanto você organiza o inventário"
+            },
+            {
+              "label": "Teste de habilidade",
+              "detail": "Teste as habilidades de Katana e Greatsword antes de comprometer materiais em uma build"
+            }
+          ]
+        }
+      ]
+    },
+    "faq": {
+      "title": "Perguntas frequentes",
+      "description": "Respostas rápidas para as dúvidas mais comuns sobre Loot to Forge.",
+      "items": [
+        {
+          "question": "O que é Loot to Forge?",
+          "answer": "Loot to Forge é um dungeon crawler incremental da Roblox criado pela Good Bro Studio. Você clica e treina para subir seu atributo de Poder, enfrenta uma masmorra linear, coleta os minérios e o loot que os inimigos deixam cair e forja espadas mais fortes para limpar andares cada vez mais profundos."
+        },
+        {
+          "question": "Como ganho Poder rápido em Loot to Forge?",
+          "answer": "Dois sistemas alimentam seu atributo de Poder em Loot to Forge: os golpes manuais de espada com o botão esquerdo do mouse e a área de treino automático, que continua gerando Poder enquanto você faz outra coisa. Deixe o treino automático rodando sempre que estiver guardando loot ou organizando o inventário, e reserve os cliques manuais para superar um bloqueio na masmorra."
+        },
+        {
+          "question": "Loot to Forge tem códigos ativos?",
+          "answer": "Ainda não. Loot to Forge não tem caixa de resgate de códigos, então não há nenhum código ativo no momento. As recompensas grátis existem: um bônus de login diário, baús de presente por tempo de jogo que escalam com a duração da sessão e um ticket de torre grátis por dia. Esta wiki vai acompanhar os códigos assim que a Good Bro Studio adicioná-los."
+        },
+        {
+          "question": "Quando devo renascer em Loot to Forge?",
+          "answer": "Renasça em Loot to Forge no momento em que a opção for desbloqueada. Um Renascimento zera seu atributo de Poder, mas concede multiplicadores permanentes de ganho de Poder e de obtenção de Moedas, além de bonecos de treino melhores, então adiar só desperdiça o Poder que você já treinou além do limite."
+        },
+        {
+          "question": "Até onde devo avançar na masmorra de Loot to Forge?",
+          "answer": "Avance até os inimigos pararem de morrer em quatro golpes ou menos. Esse é o sinal em Loot to Forge de que o próximo andar supera sua espada, então recue, guarde seu minério e gaste o carregamento em treino ou em uma forja melhor antes de arriscar morrer e perder uma mochila cheia."
+        }
+      ]
+    },
+    "finalCta": {
+      "title": "Pronto para dominar Loot to Forge?",
+      "description": "Da sua primeira run de loot até a forja de endgame, nossa wiki da comunidade cobre tudo com guias gratuitos e atualizados.",
+      "primary": "Ler o guia para iniciantes",
+      "secondary": "Jogar na Roblox"
+    }
+  },
+  "guide": {
+    "overviewTitle": "Guias de Loot to Forge",
+    "overviewDescription": "Comece aqui para encontrar guias para iniciantes de Loot to Forge, dicas e passo a passos que cobrem o ciclo principal de loot, forja e masmorra desde a sua primeira run até uma build de Poder completa."
+  },
+  "codes": {
+    "overviewTitle": "Códigos de Loot to Forge",
+    "overviewDescription": "Acompanhe os códigos ativos de Loot to Forge, veja o que cada recompensa concede e conheça os sistemas de recompensa do jogo que distribuem Moedas e minérios de graça enquanto não há códigos disponíveis."
+  },
+  "items": {
+    "overviewTitle": "Itens e armas de Loot to Forge",
+    "overviewDescription": "Explore as armas, os equipamentos e as receitas de Loot to Forge com seus atributos e origens, além das melhores escolhas e da espada mais forte que você pode forjar."
+  },
+  "mechanics": {
+    "overviewTitle": "Mecânicas de Loot to Forge",
+    "overviewDescription": "Entenda os sistemas por trás de Loot to Forge: forja, criação, combate, escalonamento de dano, masmorras e os inimigos que guardam cada andar."
+  },
+  "progression": {
+    "overviewTitle": "Progressão em Loot to Forge",
+    "overviewDescription": "Planeje sua progressão em Loot to Forge com guias de níveis, melhorias, renascimento, estágios, gemas e os segredos que aceleram cada etapa da subida."
+  },
+  "rewards": {
+    "overviewTitle": "Recompensas de Loot to Forge",
+    "overviewDescription": "Veja a tabela de loot completa de Loot to Forge, os drops raros, as armas lendárias e os itens secretos, com as rotas de farm que fazem cada recompensa cair mais rápido."
+  },
+  "community": {
+    "overviewTitle": "Comunidade de Loot to Forge",
+    "overviewDescription": "Encontre a comunidade de Loot to Forge no Discord, no Reddit e nos canais de atualizações, e acompanhe as notas do patch que adicionam novos loots, armas e andares de masmorra."
+  },
+  "shared": {
+    "wikiNavigation": "Navegação da wiki",
+    "activeCodes": "Códigos ativos",
+    "menu": "Menu",
+    "toggleTheme": "Alternar tema",
+    "updated": "Atualizado",
+    "viewAllCodes": "Ver todos os códigos",
+    "playOnRoblox": "Jogar na Roblox",
+    "inThisSection": "Nesta seção",
+    "tableOfContents": "Índice",
+    "nextSteps": "Próximos passos",
+    "needHelp": "Precisa de ajuda?",
+    "relatedReading": "Leituras relacionadas",
+    "relatedGuides": "Guias relacionados",
+    "readMore": "Ler mais",
+    "officialMedia": "Mídia oficial",
+    "home": "Início",
+    "noGuidesAvailable": "Ainda não há guias disponíveis. Volte em breve!",
+    "noActiveCodes": "Nenhum código ativo no momento",
+    "checkBackSoon": "Volte em breve para ver códigos novos",
+    "notFoundTitle": "Página não encontrada",
+    "notFoundDescription": "O guia que você procura pode ter sido movido ou ainda não foi adicionado.",
+    "browseGuides": "Ver guias"
+  },
+  "legal": {
+    "about": {
+      "title": "Sobre",
+      "metaTitle": "Sobre a wiki de Loot to Forge",
+      "metaDescription": "Saiba quem mantém a wiki de Loot to Forge, o que ela cobre e como entrar em contato para enviar correções ou dúvidas.",
+      "p1": "{name} é um hub de guias independente feito por fãs que cobre o ciclo de jogo de Loot to Forge: coletar loot, forjar e melhorar equipamentos, limpar masmorras e progredir por meio do renascimento.",
+      "p2": "Nosso objetivo é reunir em um só lugar os códigos, as listas de itens e armas, as receitas de forja e os guias para iniciantes, tanto para jogadores novos quanto veteranos.",
+      "contact": "Não somos afiliados aos desenvolvedores de Loot to Forge nem à Roblox Corporation. Dúvidas ou correções podem ser enviadas para <link>{email}</link>."
+    },
+    "copyright": {
+      "title": "Direitos autorais",
+      "metaTitle": "Direitos autorais | Wiki de Loot to Forge",
+      "metaDescription": "Aviso de direitos autorais e propriedade da wiki de Loot to Forge, um site de guias não oficial feito por fãs.",
+      "p1": "Loot to Forge, Roblox, as artes do jogo, os logotipos e as mídias relacionadas pertencem aos seus respectivos proprietários.",
+      "p2": "{name} é uma wiki de fãs não oficial criada para fins de guia e referência. Não reivindicamos nenhuma propriedade sobre o jogo ou seus ativos.",
+      "contact": "Se você detém os direitos de algum conteúdo exibido aqui e tem alguma preocupação, entre em contato pelo <link>{email}</link> e vamos analisar."
+    },
+    "privacy": {
+      "title": "Política de privacidade",
+      "metaTitle": "Política de privacidade | Wiki de Loot to Forge",
+      "metaDescription": "Como a wiki de Loot to Forge lida com analytics, publicidade e links externos, e quais dados nunca pedimos.",
+      "p1": "Esta wiki de fãs oferece guias informativos sobre Loot to Forge. Não solicitamos credenciais de conta, senhas da Roblox ou informações privadas de pagamento.",
+      "p2": "Provedores básicos de analytics, publicidade e hospedagem podem processar informações técnicas padrão, como tipo de dispositivo, navegador, região aproximada e páginas visitadas.",
+      "p3": "Links externos podem levar à Roblox, ao Discord, ao YouTube ou a ferramentas da comunidade. Esses serviços são regidos por suas próprias políticas de privacidade.",
+      "contact": "Dúvidas sobre esta política podem ser enviadas para <link>{email}</link>."
+    },
+    "terms": {
+      "title": "Termos de serviço",
+      "metaTitle": "Termos de serviço | Wiki de Loot to Forge",
+      "metaDescription": "Os termos que se aplicam quando você usa a wiki de Loot to Forge, um site de guias independente feito por fãs.",
+      "p1": "Este site é um hub de guias independente feito por fãs para Loot to Forge. O conteúdo é fornecido apenas para fins informativos e de entretenimento.",
+      "p2": "Sistemas do jogo, códigos, drops e detalhes de atualizações podem mudar sem aviso. Verifique sempre as informações importantes dentro do jogo ou pelos canais oficiais.",
+      "p3": "Ao usar este site, você concorda em não fazer uso indevido, não tentar acessos não autorizados e não apresentar esta wiki de fãs como propriedade oficial de Loot to Forge ou da Roblox.",
+      "contact": "Dúvidas sobre estes termos podem ser enviadas para <link>{email}</link>."
+    }
+  },
+  "footer": {
+    "aboutTitle": "Wiki de Loot to Forge",
+    "about": "A wiki de Loot to Forge é um hub de guias independente feito por fãs que cobre códigos ativos, sistemas de forja e criação, listas de itens e armas, masmorras, renascimento e progressão, tanto para jogadores novos quanto veteranos.",
+    "quickLinks": "Links rápidos",
+    "guides": "Guias",
+    "legal": "Legal",
+    "copyright": "2026 Wiki de Loot to Forge. Sem afiliação com os desenvolvedores do jogo ou com a Roblox.",
+    "description": "Aventura de criação gratuita da Roblox. Colete loot, forje equipamentos, melhore armas e renasça.",
+    "playGame": "Jogar Loot to Forge na Roblox",
+    "officialDiscord": "Discord da Roblox",
+    "officialYoutube": "YouTube da Roblox",
+    "beginnerGuide": "Guia para iniciantes",
+    "codesGuide": "Códigos e recompensas",
+    "itemsGuide": "Itens e armas",
+    "progressionGuide": "Progressão e renascimento",
+    "privacyPolicy": "Política de privacidade",
+    "termsOfService": "Termos de serviço"
+  }
+}

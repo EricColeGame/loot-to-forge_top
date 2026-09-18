@@ -1,13 +1,23 @@
 import { siteConfig } from "@/config/site";
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { LegalPage } from "@/components/legal-page";
 
-export default function PrivacyPolicyPage() {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "legal.privacy" });
+  return { title: t("metaTitle"), description: t("metaDescription") };
+}
+
+export default async function PrivacyPolicyPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "legal.privacy" });
   return (
-    <LegalPage title="Privacy Policy">
-      <p>This fan wiki provides informational game guides for Loot to Forge. We do not request account credentials, Roblox passwords, or private payment information.</p>
-      <p>Basic analytics, advertising, and hosting providers may process standard technical information such as device type, browser, approximate region, and visited pages.</p>
-      <p>External links may lead to Roblox, Discord, YouTube, or community tools. Those services are governed by their own privacy policies.</p>
-      <p>Questions about this policy can be sent to <a className="font-semibold text-[hsl(var(--nav-theme))] hover:underline" href={`mailto:${siteConfig.supportEmail}`}>{siteConfig.supportEmail}</a>.</p>
+    <LegalPage title={t("title")}>
+      <p>{t("p1")}</p>
+      <p>{t("p2")}</p>
+      <p>{t("p3")}</p>
+      <p>{t.rich("contact", { email: siteConfig.supportEmail, link: (chunks) => <a className="font-semibold text-[hsl(var(--nav-theme))] hover:underline" href={`mailto:${siteConfig.supportEmail}`}>{chunks}</a> })}</p>
     </LegalPage>
   );
 }

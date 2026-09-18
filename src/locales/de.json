@@ -1,1 +1,504 @@
-{}
+{
+  "site": {
+    "name": "Loot to Forge Wiki",
+    "shortName": "Loot to Forge",
+    "tagline": "Codes, Schmiede-Guides, Gegenstände und Fortschrittstipps",
+    "description": "Loot to Forge ist ein Roblox-Crafting-Abenteuer rund um das Sammeln von Loot, das Schmieden mächtiger Ausrüstung und das Verbessern von Waffen. Dieses Fan-Wiki behandelt aktive Codes, Schmiede- und Crafting-Guides, Gegenstandslisten, Rebirth und Fortschrittsstrategien.",
+    "legalNotice": "Inoffizielles Fan-Wiki. Von Spielern für Spieler."
+  },
+  "nav": {
+    "guide": "Guides",
+    "codes": "Codes",
+    "items": "Gegenstände",
+    "mechanics": "Mechaniken",
+    "progression": "Fortschritt",
+    "rewards": "Belohnungen",
+    "community": "Community"
+  },
+  "home": {
+    "meta": {
+      "title": "Loot to Forge Wiki - Codes, Gegenstände und Guides",
+      "description": "Das Loot to Forge Wiki bietet aktuelle Codes, Gegenstands-Guides, Schmiedetipps, Informationen zu Verbesserungen und Einsteigerstrategien, mit denen du Loot sammelst und starke Ausrüstung aufbaust."
+    },
+    "hero": {
+      "eyebrow": "Loot-basiertes Schmiede-Abenteuerspiel",
+      "title": "Loot to Forge Wiki",
+      "description": "Loot to Forge ist ein Crafting-Abenteuerspiel rund um das Sammeln von Loot, das Schmieden mächtiger Ausrüstung, das Verbessern von Waffen und den Fortschritt durch lohnende Gameplay-Schleifen.",
+      "stats": [
+        "Codes und Belohnungen",
+        "Gegenstände und Waffen",
+        "Schmieden und Verbessern",
+        "Fortschritt und Rebirth"
+      ],
+      "primaryCta": "Einsteiger-Guide",
+      "secondaryCta": "Auf Roblox spielen",
+      "tertiaryCta": "Aktive Codes",
+      "videoLabel": "Gameplay-Video"
+    },
+    "updates": {
+      "title": "Neueste Updates",
+      "browse": "Alle Guides durchsuchen",
+      "viewAll": "Alle ansehen"
+    },
+    "start": {
+      "eyebrow": "Hier starten",
+      "title": "Deine Reise in Loot to Forge",
+      "cards": [
+        {
+          "number": "1",
+          "title": "Einsteiger-Guide",
+          "description": "Lerne die Kernschleife ab deinem ersten Klick kennen: Trainiere Kraft, betritt den Dungeon, sammle Erz und schmiede dein erstes richtiges Schwert."
+        },
+        {
+          "number": "2",
+          "title": "Schnellstes Kraft-Leveln",
+          "description": "Kombiniere manuelle Schwertschläge mit dem Auto-Trainingsbereich, um deine Kraft hoch genug für die nächste Dungeon-Ebene zu bringen."
+        },
+        {
+          "number": "3",
+          "title": "Beste Loot-Farmplätze",
+          "description": "Farme die tiefsten Ebenen, die du sicher schaffst, und achte auf deine Taschenkapazität, damit jeder Run mit einer vollen Ladung Erz endet."
+        },
+        {
+          "number": "4",
+          "title": "Stärkere Schwerter schmieden",
+          "description": "Wähle zwischen Katana und Greatsword, nutze die Materialien, die du farmst, und schalte die Fähigkeit frei, die zu deinem Schmiede-Build passt."
+        }
+      ]
+    },
+    "popular": {
+      "eyebrow": "Beliebte Seiten",
+      "title": "Gerade im Trend",
+      "quickLinks": [
+        "Schmieden und Crafting",
+        "Schnellstes Leveln",
+        "Stärkstes Schwert",
+        "Dungeon-Routen"
+      ]
+    },
+    "aboutGame": {
+      "title": "Was ist Loot to Forge?",
+      "paragraphs": [
+        "Loot to Forge ist ein inkrementeller Dungeon-Crawler für Roblox von Good Bro Studio. Du klickst und trainierst, um deinen Kraft-Wert zu steigern, ziehst in einen linearen Dungeon, um Horden von Gegnern zu besiegen, und bringst das Erz und den Loot zurück, den sie fallen lassen. Jedes Erz wandert in die Schmiede, und jedes geschmiedete Schwert bringt dich eine Ebene tiefer.",
+        "Der Fortschritt folgt einer engen Schleife: Loot sammeln, stärkere Ausrüstung schmieden und dann die Ebenen schaffen, die vor einem Run noch außer Reichweite waren. Verbesserungen erhöhen deine Taschenkapazität und deine Kampfwerte, Verzauberungen und Waffenfähigkeiten schärfen deinen Build, und ein Rebirth tauscht deinen Kraft-Wert gegen dauerhafte Kraft- und Münz-Multiplikatoren, sobald du die nötige Schwelle erreichst."
+      ],
+      "stats": [
+        {
+          "label": "Entwickler",
+          "value": "Good Bro Studio"
+        },
+        {
+          "label": "Plattform",
+          "value": "Roblox"
+        },
+        {
+          "label": "Genre",
+          "value": "Inkrementeller Dungeon-Crawler"
+        },
+        {
+          "label": "Kernschleife",
+          "value": "Loot, Schmieden, tiefer gehen"
+        },
+        {
+          "label": "Waffentypen",
+          "value": "Katana und Greatsword"
+        },
+        {
+          "label": "Kernsysteme",
+          "value": "Rebirth und Verzauberungen"
+        },
+        {
+          "label": "Hauptwährung",
+          "value": "Münzen"
+        }
+      ],
+      "cta": "Alle Guides entdecken"
+    },
+    "explore": {
+      "title": "Das Loot to Forge Wiki entdecken",
+      "description": "Meistere die Fortschrittsschleife von Loot to Forge mit Code-Tracking, Einsteiger-Walkthroughs, Schmiede- und Verbesserungs-Guides, Tier Lists und Farmrouten im Dungeon.",
+      "modules": [
+        {
+          "order": 1,
+          "name": "Loot to Forge Codes",
+          "description": "Verfolge den Status der einlösbaren Codes für Loot to Forge sowie die Ingame-Belohnungssysteme, die kostenlose Münzen und Erz ausgeben, solange keine Codes aktiv sind.",
+          "href": "/codes/loot-to-forge-codes",
+          "displayType": "code-cards",
+          "highlights": [
+            {
+              "label": "Noch keine Codes",
+              "detail": "Good Bro Studio hat in Loot to Forge kein Code-Einlösefeld eingebaut",
+              "badge": "Geprüft"
+            },
+            {
+              "label": "Täglicher Login",
+              "detail": "Hole alle 24 Stunden kostenlose Münzen und Materialien in der Lobby ab"
+            },
+            {
+              "label": "Spielzeit-Geschenke",
+              "detail": "Belohnungstruhen skalieren mit der Sitzungsdauer, während du idle bist"
+            },
+            {
+              "label": "Turm-Tickets",
+              "detail": "Ein kostenloses Ticket pro Tag schaltet Erz-Runs im Frostbound Tower frei"
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "name": "Loot to Forge Einsteiger-Guide",
+          "description": "Ein vollständiger Walkthrough deiner ersten Sitzung durch die Loot to Forge Schleife: Kraft aufbauen, den Dungeon überleben, Erz einlagern und das Schwert schmieden, das dich tiefer bringt.",
+          "href": "/guide/loot-to-forge-beginner-guide",
+          "displayType": "step-by-step",
+          "highlights": [
+            {
+              "label": "1",
+              "detail": "Trainiere Kraft mit Schwertschlägen per Linksklick oder bleib im Auto-Trainingsbereich"
+            },
+            {
+              "label": "2",
+              "detail": "Betritt den linearen Dungeon und lass die Auto-Angriffe die Gegner erledigen, während du dich positionierst"
+            },
+            {
+              "label": "3",
+              "detail": "Sammle Erz und Loot auf, bis deine Taschenkapazität voll ist"
+            },
+            {
+              "label": "4",
+              "detail": "Kehre zum Hub zurück und verkaufe überschüssigen Loot für Münzen"
+            },
+            {
+              "label": "5",
+              "detail": "Gib Münzen an der Verbesserungsstation für Tragekapazität und Kampfwerte aus"
+            },
+            {
+              "label": "6",
+              "detail": "Schmiede ein stärkeres Katana oder Greatsword und stoße in die nächste Dungeon-Ebene vor"
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "name": "Loot to Forge Schmiede-Guide",
+          "description": "Wie der Amboss in Loot to Forge funktioniert: welches Erz sich zum Farmen lohnt, die zwei Waffentypen und wie Schmiedematerialien bestimmen, welche Fähigkeit deine Klinge erhält.",
+          "href": "/mechanics/loot-to-forge-forging",
+          "displayType": "card-list",
+          "highlights": [
+            {
+              "label": "Erze",
+              "detail": "Das im Dungeon gesammelte Erz ist der Rohstoff für jedes Schwert"
+            },
+            {
+              "label": "Katana",
+              "detail": "Schneller Waffentyp mit eigenen Fähigkeiten"
+            },
+            {
+              "label": "Greatsword",
+              "detail": "Schwerer Waffentyp, der auf rohen Schaden ausgelegt ist"
+            },
+            {
+              "label": "Fähigkeiten",
+              "detail": "Werden mit Q ausgelöst; die Fähigkeit hängt von Waffentyp und Schmiedematerialien ab"
+            },
+            {
+              "label": "Verzaubern",
+              "detail": "Verzauberungen legen zusätzliche Werte auf geschmiedete Ausrüstung"
+            },
+            {
+              "label": "Verbessern",
+              "detail": "Erhöhe die Ausrüstungswerte an der Schmiede, um mit tieferen Ebenen mitzuhalten"
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "name": "Loot to Forge Tier List",
+          "description": "Aktivitäten und Ausrüstung in Loot to Forge, sortiert nach Kraft und Loot pro Stunde, damit du weißt, wofür du deine nächste Sitzung aufwendest.",
+          "href": "/items/loot-to-forge-best-items",
+          "displayType": "tier-grid",
+          "highlights": [
+            {
+              "label": "S",
+              "detail": "Erz-Runs auf der tiefsten Ebene, die du schaffst, für den besten Loot pro Minute"
+            },
+            {
+              "label": "A",
+              "detail": "Auto-Training, während du Loot einlagerst, für stetige Kraft ohne Eingabe"
+            },
+            {
+              "label": "B",
+              "detail": "Frühe Dungeon-Ebenen, um sicher Erz für ein neues Schwert zu farmen"
+            },
+            {
+              "label": "C",
+              "detail": "Manuelles Schlagen im Hub, lohnt sich nur vor dem Auto-Training"
+            }
+          ]
+        },
+        {
+          "order": 5,
+          "name": "Loot to Forge Rebirth-Guide",
+          "description": "Wann du in Loot to Forge ein Rebirth machst, was der Reset kostet und wie sich die dauerhaften Multiplikatoren über jeden folgenden Run aufsummieren.",
+          "href": "/progression/loot-to-forge-rebirth",
+          "displayType": "step-by-step",
+          "highlights": [
+            {
+              "label": "1",
+              "detail": "Trainiere weiter Kraft, bis die Rebirth-Anzeige links 100% zeigt"
+            },
+            {
+              "label": "2",
+              "detail": "Mach das Rebirth, sobald es freigeschaltet ist; Training über die Schwelle hinaus verschwendet Kraft"
+            },
+            {
+              "label": "3",
+              "detail": "Dein Kraft-Wert wird auf null zurückgesetzt, die dauerhaften Boni bleiben aber erhalten"
+            },
+            {
+              "label": "4",
+              "detail": "Baue Kraft mit der erhöhten Zuwachsrate neu auf; mit guter Ausrüstung bist du in ein bis zwei Minuten zurück"
+            },
+            {
+              "label": "5",
+              "detail": "Trainiere an den besseren Trainingspuppen, die das Rebirth freischaltet"
+            },
+            {
+              "label": "6",
+              "detail": "Wiederhole das an jeder Schwelle, um Kraftzuwachs- und Münz-Boni zu stapeln"
+            }
+          ]
+        },
+        {
+          "order": 6,
+          "name": "Loot to Forge Dungeon-Guide",
+          "description": "So liest du den Dungeon in Loot to Forge: wie Ebenen skalieren, was Gegner fallen lassen und wann du dich zurückziehst, statt eine volle Tasche Erz zu verlieren.",
+          "href": "/mechanics/loot-to-forge-dungeons",
+          "displayType": "card-list",
+          "highlights": [
+            {
+              "label": "Ebenen",
+              "detail": "Der Dungeon ist ein linearer Gang, und jede Ebene hat stärkere Gegner"
+            },
+            {
+              "label": "Drops",
+              "detail": "Die Qualität von Erz und Loot steigt, je tiefer du vordringst"
+            },
+            {
+              "label": "Tasche",
+              "detail": "Die Tragekapazität ist begrenzt, also lagere deine Beute im Hub ein, bevor sie voll ist"
+            },
+            {
+              "label": "Rückzug",
+              "detail": "Wenn ein Gegner mehr als vier Treffer übersteht, zieh dich zurück und trainiere zuerst"
+            },
+            {
+              "label": "Auto-Angriff",
+              "detail": "Dein Avatar greift im Dungeon von selbst an, du kümmerst dich um Positionierung und Fähigkeiten"
+            },
+            {
+              "label": "Tod",
+              "detail": "Stirbst du tief im Dungeon, verlierst du den Loot, den du trägst"
+            }
+          ]
+        },
+        {
+          "order": 7,
+          "name": "Loot to Forge Update-Guide",
+          "description": "Patch-Tracking für Loot to Forge: welcher Build live ist, was sich im letzten Update geändert hat und wo das Studio Ankündigungen postet.",
+          "href": "/community/loot-to-forge-update",
+          "displayType": "code-cards",
+          "highlights": [
+            {
+              "label": "UPD 2",
+              "detail": "Aktuell live befindlicher Build von Loot to Forge auf Roblox",
+              "badge": "Live"
+            },
+            {
+              "label": "Patchnotes",
+              "detail": "Balance-Anpassungen, neue Ebenen und Schmiedeänderungen kommen mit jedem größeren Update"
+            },
+            {
+              "label": "Ankündigungen",
+              "detail": "In der offiziellen Good Bro Studio Roblox-Gruppe erscheinen Updates zuerst"
+            },
+            {
+              "label": "Keine Codes",
+              "detail": "Bisher hat kein Update ein Code-Einlösesystem hinzugefügt"
+            }
+          ]
+        },
+        {
+          "order": 8,
+          "name": "Loot to Forge Fortschrittstipps",
+          "description": "Praktische Loot to Forge Tipps für schnelleres Wachstum: Taschenverwaltung, Reihenfolge der Verbesserungen, Rebirth-Timing und die Fehler, die neue Spieler ausbremsen.",
+          "href": "/guide/loot-to-forge-pro-tips",
+          "displayType": "card-list",
+          "highlights": [
+            {
+              "label": "Kapazität",
+              "detail": "Kaufe Taschenverbesserungen früh; längere Runs bedeuten mehr Erz pro Ausflug"
+            },
+            {
+              "label": "Klug verkaufen",
+              "detail": "Verkaufe überschüssigen Loot für Münzen, statt Gegenstände zu horten, die du nicht schmiedest"
+            },
+            {
+              "label": "Vier Treffer",
+              "detail": "Sterben Gegner in vier Treffern oder weniger, ist die Ebene noch sicher zum Farmen"
+            },
+            {
+              "label": "Rebirth",
+              "detail": "Mach das Rebirth, sobald die Anzeige voll ist, um keine Kraft zu verschwenden"
+            },
+            {
+              "label": "Auto-Training",
+              "detail": "Lass den Auto-Trainingsbereich laufen, während du dein Inventar sortierst"
+            },
+            {
+              "label": "Fähigkeitstest",
+              "detail": "Teste Katana- und Greatsword-Fähigkeiten, bevor du Materialien in einen Build investierst"
+            }
+          ]
+        }
+      ]
+    },
+    "faq": {
+      "title": "Häufig gestellte Fragen",
+      "description": "Schnelle Antworten auf die häufigsten Fragen zu Loot to Forge.",
+      "items": [
+        {
+          "question": "Was ist Loot to Forge?",
+          "answer": "Loot to Forge ist ein inkrementeller Dungeon-Crawler für Roblox von Good Bro Studio. Du klickst und trainierst, um deinen Kraft-Wert aufzubauen, kämpfst dich durch einen linearen Dungeon, sammelst das Erz und den Loot, den Gegner fallen lassen, und schmiedest stärkere Schwerter, um noch tiefere Ebenen zu schaffen."
+        },
+        {
+          "question": "Wie bekomme ich in Loot to Forge schnell Kraft?",
+          "answer": "Zwei Systeme speisen deinen Kraft-Wert in Loot to Forge: manuelle Schwertschläge mit der linken Maustaste und der Auto-Trainingsbereich, der weiter Kraft erzeugt, während du etwas anderes machst. Lass das Auto-Training laufen, wann immer du Loot einlagerst oder dein Inventar sortierst, und spare dir manuelles Klicken für den Durchbruch an einer Dungeon-Wand auf."
+        },
+        {
+          "question": "Hat Loot to Forge aktive Codes?",
+          "answer": "Noch nicht. Loot to Forge hat kein Code-Einlösefeld, deshalb ist derzeit kein Code aktiv. Kostenlose Belohnungen gibt es trotzdem: einen täglichen Login-Bonus, Geschenktruhen für Spielzeit, die mit der Sitzungsdauer skalieren, und ein kostenloses Turm-Ticket pro Tag. Dieses Wiki verfolgt Codes, sobald Good Bro Studio sie hinzufügt."
+        },
+        {
+          "question": "Wann sollte ich in Loot to Forge ein Rebirth machen?",
+          "answer": "Mach das Rebirth in Loot to Forge in dem Moment, in dem die Option freigeschaltet wird. Ein Rebirth setzt deinen Kraft-Wert auf null zurück, gewährt aber dauerhafte Multiplikatoren für Kraftzuwachs und Münzverdienst sowie bessere Trainingspuppen. Ein Aufschub verschwendet also nur die Kraft, die du bereits über die Schwelle hinaus trainiert hast."
+        },
+        {
+          "question": "Wie tief sollte ich im Loot to Forge Dungeon vordringen?",
+          "answer": "Dringe so weit vor, bis Gegner nicht mehr in vier Treffern oder weniger sterben. Das ist in Loot to Forge das Signal, dass die nächste Ebene dein Schwert überfordert. Zieh dich also zurück, lagere dein Erz ein und investiere die Beute in Training oder eine bessere Schmiede, bevor du riskierst zu sterben und eine volle Tasche zu verlieren."
+        }
+      ]
+    },
+    "finalCta": {
+      "title": "Bereit, Loot to Forge zu meistern?",
+      "description": "Von deinem ersten Loot-Run bis zum Endgame-Schmieden deckt dich unser Community-Wiki mit kostenlosen, aktuellen Guides ab.",
+      "primary": "Einsteiger-Guide lesen",
+      "secondary": "Auf Roblox spielen"
+    }
+  },
+  "guide": {
+    "overviewTitle": "Loot to Forge Guides",
+    "overviewDescription": "Starte hier für Loot to Forge Einsteiger-Guides, Tipps und Schritt-für-Schritt-Walkthroughs zur Kernschleife aus Loot, Schmiede und Dungeon, von deinem ersten Run bis zum vollständigen Kraft-Build."
+  },
+  "codes": {
+    "overviewTitle": "Loot to Forge Codes",
+    "overviewDescription": "Verfolge aktive Loot to Forge Codes, sieh nach, was jede Belohnung bringt, und lerne die Ingame-Belohnungssysteme kennen, die kostenlose Münzen und Erz ausgeben, solange keine Codes verfügbar sind."
+  },
+  "items": {
+    "overviewTitle": "Loot to Forge Gegenstände und Waffen",
+    "overviewDescription": "Durchsuche Waffen, Ausrüstung und Rezepte aus Loot to Forge mit ihren Werten und Fundorten, dazu die besten Empfehlungen und das stärkste Schwert, das du schmieden kannst."
+  },
+  "mechanics": {
+    "overviewTitle": "Loot to Forge Mechaniken",
+    "overviewDescription": "Verstehe die Systeme hinter Loot to Forge: Schmieden, Crafting, Kampf, Schadensskalierung, Dungeons und die Gegner, die jede Ebene bewachen."
+  },
+  "progression": {
+    "overviewTitle": "Loot to Forge Fortschritt",
+    "overviewDescription": "Plane deinen Fortschritt in Loot to Forge mit Guides zu Leveln, Verbesserungen, Rebirth, Etappen, Edelsteinen und den Geheimnissen, die jede Phase des Aufstiegs beschleunigen."
+  },
+  "rewards": {
+    "overviewTitle": "Loot to Forge Belohnungen",
+    "overviewDescription": "Sieh dir die vollständige Loot-Tabelle von Loot to Forge an: seltene Drops, legendäre Waffen und geheime Gegenstände, dazu die Farmrouten, mit denen jede Belohnung schneller fällt."
+  },
+  "community": {
+    "overviewTitle": "Loot to Forge Community",
+    "overviewDescription": "Finde die Loot to Forge Community auf Discord, Reddit und in den Update-Kanälen und folge den Patchnotes, die neuen Loot, neue Waffen und neue Dungeon-Ebenen hinzufügen."
+  },
+  "shared": {
+    "wikiNavigation": "Wiki-Navigation",
+    "activeCodes": "Aktive Codes",
+    "menu": "Menü",
+    "toggleTheme": "Design wechseln",
+    "updated": "Aktualisiert",
+    "viewAllCodes": "Alle Codes ansehen",
+    "playOnRoblox": "Auf Roblox spielen",
+    "inThisSection": "In diesem Abschnitt",
+    "tableOfContents": "Inhaltsverzeichnis",
+    "nextSteps": "Nächste Schritte",
+    "needHelp": "Brauchst du Hilfe?",
+    "relatedReading": "Verwandte Lektüre",
+    "relatedGuides": "Verwandte Guides",
+    "readMore": "Mehr lesen",
+    "officialMedia": "Offizielle Medien",
+    "home": "Startseite",
+    "noGuidesAvailable": "Noch keine Guides verfügbar. Schau bald wieder vorbei!",
+    "noActiveCodes": "Derzeit sind keine Codes aktiv",
+    "checkBackSoon": "Schau bald wieder vorbei, um neue Codes zu sehen",
+    "notFoundTitle": "Seite nicht gefunden",
+    "notFoundDescription": "Der gesuchte Guide wurde möglicherweise verschoben oder ist noch nicht vorhanden.",
+    "browseGuides": "Guides durchsuchen"
+  },
+  "legal": {
+    "about": {
+      "title": "Über uns",
+      "metaTitle": "Über das Loot to Forge Wiki",
+      "metaDescription": "Erfahre, wer das Loot to Forge Wiki betreibt, was es abdeckt und wie du Korrekturen oder Fragen loswirst.",
+      "p1": "{name} ist ein unabhängiger, von Fans betriebener Guide-Hub, der die Gameplay-Schleife von Loot to Forge abdeckt: Loot sammeln, Ausrüstung schmieden und verbessern, Dungeons räumen und durch Rebirth vorankommen.",
+      "p2": "Unser Ziel ist es, Codes, Gegenstands- und Waffenlisten, Schmiederezepte und Einsteiger-Walkthroughs an einem Ort zu bündeln, für neue und erfahrene Spieler gleichermaßen.",
+      "contact": "Wir sind weder mit den Entwicklern von Loot to Forge noch mit der Roblox Corporation verbunden. Fragen oder Korrekturen kannst du an <link>{email}</link> senden."
+    },
+    "copyright": {
+      "title": "Urheberrecht",
+      "metaTitle": "Urheberrecht | Loot to Forge Wiki",
+      "metaDescription": "Urheberrechts- und Eigentumshinweis für das Loot to Forge Wiki, eine inoffizielle Fan-Guide-Seite.",
+      "p1": "Loot to Forge, Roblox, Ingame-Grafiken, Logos und zugehörige Medien gehören ihren jeweiligen Eigentümern.",
+      "p2": "{name} ist ein nicht offizielles Fan-Wiki, das zu Guide- und Referenzzwecken erstellt wurde. Wir erheben keinen Anspruch auf das Spiel oder seine Inhalte.",
+      "contact": "Wenn du Rechte an hier gezeigten Inhalten hältst und Bedenken hast, kontaktiere uns bitte unter <link>{email}</link>, und wir prüfen es."
+    },
+    "privacy": {
+      "title": "Datenschutzerklärung",
+      "metaTitle": "Datenschutzerklärung | Loot to Forge Wiki",
+      "metaDescription": "Wie das Loot to Forge Wiki mit Analytics, Werbung und externen Links umgeht und welche Daten wir nie abfragen.",
+      "p1": "Dieses Fan-Wiki bietet informative Spielguides zu Loot to Forge. Wir fragen keine Kontozugangsdaten, Roblox-Passwörter oder private Zahlungsinformationen ab.",
+      "p2": "Grundlegende Analytics-, Werbe- und Hosting-Anbieter können übliche technische Informationen verarbeiten, etwa Gerätetyp, Browser, ungefähre Region und besuchte Seiten.",
+      "p3": "Externe Links können zu Roblox, Discord, YouTube oder Community-Tools führen. Für diese Dienste gelten deren eigene Datenschutzerklärungen.",
+      "contact": "Fragen zu dieser Erklärung kannst du an <link>{email}</link> senden."
+    },
+    "terms": {
+      "title": "Nutzungsbedingungen",
+      "metaTitle": "Nutzungsbedingungen | Loot to Forge Wiki",
+      "metaDescription": "Die Bedingungen, die gelten, wenn du das Loot to Forge Wiki nutzt, eine unabhängige Fan-Guide-Seite.",
+      "p1": "Diese Seite ist ein unabhängiger, von Fans erstellter Guide-Hub für Loot to Forge. Die Inhalte dienen ausschließlich Informations- und Unterhaltungszwecken.",
+      "p2": "Spielsysteme, Codes, Drops und Update-Details können sich ohne Ankündigung ändern. Prüfe wichtige Informationen immer im Spiel oder über offizielle Kanäle.",
+      "p3": "Mit der Nutzung dieser Seite erklärst du dich damit einverstanden, sie nicht zu missbrauchen, keine unbefugten Zugriffe zu versuchen und dieses Fan-Wiki nicht als offizielles Eigentum von Loot to Forge oder Roblox darzustellen.",
+      "contact": "Fragen zu diesen Bedingungen kannst du an <link>{email}</link> senden."
+    }
+  },
+  "footer": {
+    "aboutTitle": "Loot to Forge Wiki",
+    "about": "Das Loot to Forge Wiki ist ein unabhängiger, von Fans erstellter Guide-Hub zu aktiven Codes, Schmiede- und Crafting-Systemen, Gegenstands- und Waffenlisten, Dungeons, Rebirth und Fortschritt, für neue und erfahrene Spieler gleichermaßen.",
+    "quickLinks": "Schnelllinks",
+    "guides": "Guides",
+    "legal": "Rechtliches",
+    "copyright": "2026 Loot to Forge Wiki. Nicht mit den Entwicklern des Spiels oder Roblox verbunden.",
+    "description": "Kostenloses Roblox-Crafting-Abenteuer. Sammle Loot, schmiede Ausrüstung, verbessere Waffen und mach Rebirth.",
+    "playGame": "Loot to Forge auf Roblox spielen",
+    "officialDiscord": "Roblox Discord",
+    "officialYoutube": "Roblox YouTube",
+    "beginnerGuide": "Einsteiger-Guide",
+    "codesGuide": "Codes und Belohnungen",
+    "itemsGuide": "Gegenstände und Waffen",
+    "progressionGuide": "Fortschritt und Rebirth",
+    "privacyPolicy": "Datenschutzerklärung",
+    "termsOfService": "Nutzungsbedingungen"
+  }
+}

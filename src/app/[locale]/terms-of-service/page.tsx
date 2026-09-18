@@ -1,13 +1,23 @@
 import { siteConfig } from "@/config/site";
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { LegalPage } from "@/components/legal-page";
 
-export default function TermsOfServicePage() {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "legal.terms" });
+  return { title: t("metaTitle"), description: t("metaDescription") };
+}
+
+export default async function TermsOfServicePage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "legal.terms" });
   return (
-    <LegalPage title="Terms of Service">
-      <p>This site is an independent fan-made guide hub for Loot to Forge. Content is provided for informational and entertainment purposes only.</p>
-      <p>Game systems, codes, drops, and update details may change without notice. Always verify important information in-game or through official channels.</p>
-      <p>By using this site, you agree not to misuse it, attempt unauthorized access, or present this fan wiki as an official Loot to Forge or Roblox property.</p>
-      <p>Questions about these terms can be sent to <a className="font-semibold text-[hsl(var(--nav-theme))] hover:underline" href={`mailto:${siteConfig.supportEmail}`}>{siteConfig.supportEmail}</a>.</p>
+    <LegalPage title={t("title")}>
+      <p>{t("p1")}</p>
+      <p>{t("p2")}</p>
+      <p>{t("p3")}</p>
+      <p>{t.rich("contact", { email: siteConfig.supportEmail, link: (chunks) => <a className="font-semibold text-[hsl(var(--nav-theme))] hover:underline" href={`mailto:${siteConfig.supportEmail}`}>{chunks}</a> })}</p>
     </LegalPage>
   );
 }

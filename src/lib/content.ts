@@ -247,11 +247,44 @@ const GROUP_TITLES: Record<string, string> = {
   community: "Community",
 };
 
-// locale → 分组标题映射（非英文语言暂未翻译，缺失时回退到 GROUP_TITLES）
-const GROUP_TITLES_BY_LOCALE: Record<string, Record<string, string>> = {};
+// locale → 分组标题映射（缺失的语言回退到 GROUP_TITLES）
+// 术语与 content/<locale>/*.mdx 正文保持一致（如 de 用 Gegenstände / Fortschritt）
+const GROUP_TITLES_BY_LOCALE: Record<string, Record<string, string>> = {
+  es: {
+    guide: "Guías",
+    codes: "Códigos",
+    items: "Objetos",
+    mechanics: "Mecánicas",
+    progression: "Progresión",
+    rewards: "Recompensas",
+    community: "Comunidad",
+  },
+  pt: {
+    guide: "Guias",
+    codes: "Códigos",
+    items: "Itens",
+    mechanics: "Mecânicas",
+    progression: "Progressão",
+    rewards: "Recompensas",
+    community: "Comunidade",
+  },
+  de: {
+    guide: "Guides",
+    codes: "Codes",
+    items: "Gegenstände",
+    mechanics: "Mechaniken",
+    progression: "Fortschritt",
+    rewards: "Belohnungen",
+    community: "Community",
+  },
+};
 
 // locale → "Overview" 翻译（缺失时回退到英文 "Overview"）
-const OVERVIEW_LABEL_BY_LOCALE: Record<string, string> = {};
+const OVERVIEW_LABEL_BY_LOCALE: Record<string, string> = {
+  es: "Resumen",
+  pt: "Visão geral",
+  de: "Übersicht",
+};
 
 // 分组排序顺序（与 NAVIGATION_CONFIG 的展示顺序保持一致）
 const GROUP_ORDER: string[] = [
